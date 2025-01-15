@@ -20,8 +20,16 @@ export default function Step1({ onNext, heading, description}: Step1Props) {
     const params = new URLSearchParams(window.location.search);
     if (params.get('redirect_status') === 'succeeded') {
       setSuccessMessage('Payment succeeded! Thank you for your contribution.');
+      
+      // Automatically remove the success message after 5 seconds
+      const timer = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000);
+  
+      // Cleanup function to clear the timer
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, []);  
 
   const handleBlur = () => {
     const value = getValues('amount');

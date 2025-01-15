@@ -169,11 +169,18 @@ export default function Step3({
     )} */}
     </form>
 
-    {paymentMethod === 'card' && clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          {confirmed ? <CompletePage /> : <CheckoutForm />}
-        </Elements>
-      )}
+    {paymentMethod === 'card' ? (
+        clientSecret ? (
+            <Elements options={options} stripe={stripePromise}>
+            {confirmed ? <CompletePage /> : <CheckoutForm />}
+            </Elements>
+        ) : (
+            <div className='pt-20 pb-20'><p>Loading payment details...</p></div>
+        )
+        ) : null}
+
+
+
         <div className="flex justify-between absolute bottom-0">
         <button
           type="button"
