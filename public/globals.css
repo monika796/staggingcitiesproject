@@ -1,0 +1,19 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    .swiper-pagination-bullet {
+      width: 49px;
+      border-radius: 0;
+      background: #e0e0e0; /* Default color for inactive bullets */
+    }
+  
+    .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      background: #a1cf5f; /* Active color */
+      transform: scale(1.2); /* Slightly enlarge the active bullet */
+    }
+  }
+ 
