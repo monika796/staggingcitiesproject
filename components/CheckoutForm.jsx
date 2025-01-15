@@ -27,7 +27,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://citiesprojectglobal.vercel.app/donation-second/",
+        return_url: "https://staggingcitiesprojectglobal.vercel.app/donation",
       },
     });
 
@@ -53,11 +53,12 @@ export default function CheckoutForm() {
     <form id="payment-form" onSubmit={handleSubmit}>
 
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit" className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      <div className="flex justify-end">
+      <button disabled={isLoading || !stripe || !elements} id="submit" className="mt-5 bg-[#A1CF5F] text-black py-2 px-4 rounded-md hover:bg-[#0f85c2] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Donate"}
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Complete"}
         </span>
-      </button>
+      </button></div>
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
