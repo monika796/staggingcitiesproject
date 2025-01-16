@@ -69,7 +69,7 @@ export default function Step1({ onNext, heading, description}: Step1Props) {
         <h4 className="text-[20px] w-full text-[#000000] md:w-[50%] font-bold leading-[24.2px] text-center m-auto py-5">
             {description}
         </h4>
-        <div className="grid rounded-[30px] gap-[48px] border border-[#dcdcdc] p-10">
+        <div className="grid rounded-[10px] md:rounded-[30px] gap-[30px] md:gap-[48px] border border-[#dcdcdc] p-5 md:p-10">
             <select 
             {...register('frequency', { required: true })}
             id="frequency"
@@ -105,7 +105,7 @@ export default function Step1({ onNext, heading, description}: Step1Props) {
             </select>          
             </div>
         </div>     
-    <Button className="mx-auto flex w-[90%] bg-[#A1CF5F] text-black" type="submit">Next</Button>
+    <Button className="mx-auto flex w-[100%] md:w-[90%] bg-[#A1CF5F] text-black" type="submit">Next</Button>
     </form>
     </div>
   )

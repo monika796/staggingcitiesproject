@@ -32,8 +32,8 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
         <h3 className="text-lg font-medium text-center">Your Information</h3>
       </div>
 
-      <div className="flex space-x-4">
-        <div className="space-y-4 w-1/2">
+      <div className="flex flex-wrap gap-6 md:gap-0 md:flex-nowrap space-x-0 md:space-x-4">
+        <div className="space-y-4 m-0  w-full md:w-1/2">
           <Label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</Label>
           <Controller
             name="firstName"
@@ -41,14 +41,14 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
             rules={{ required: 'First Name is required' }}
             render={({ field }) => (
               <>
-                <input {...field} type="text" id="firstName" placeholder="Enter your first name" className="border-b border-[#dcdcdc]" />
+                <input {...field} type="text" id="firstName" placeholder="Enter your first name" className="border-b w-full border-[#dcdcdc]" />
                 {errors.firstName && <span className="text-red-500 text-sm block">{errors.firstName.message}</span>}
               </>
             )}
           />
         </div>
 
-        <div className="space-y-4 w-1/2">
+        <div className="space-y-4  m-0  w-full md:w-1/2">
           <Label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</Label>
           <Controller
             name="lastName"
@@ -56,7 +56,7 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
             rules={{ required: 'Last Name is required' }}
             render={({ field }) => (
               <>
-                <input {...field} type="text" id="lastName" placeholder="Enter your last name" className="border-b border-[#dcdcdc]" />
+                <input {...field} type="text" id="lastName" placeholder="Enter your last name" className="border-b w-full border-[#dcdcdc]" />
                 {errors.lastName && <span className="text-red-500 text-sm block">{errors.lastName.message}</span>}
               </>
             )}
@@ -64,7 +64,7 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 ">
         <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
         <Controller
           name="email"
@@ -100,8 +100,8 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
         />
       </div>
 
-      <div className="flex space-x-4">
-        <div className="space-y-4 w-1/2">
+      <div className="flex gap-6 md:gap-0  space-x-0 md:space-x-4 flex-wrap md:flex-nowrap">
+        <div className="space-y-4 w-full md:w-1/2">
           <Label htmlFor="city" className="block text-sm font-medium text-gray-700">City</Label>
           <Controller
             name="city"
@@ -109,13 +109,13 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
             rules={{ required: 'City is required' }}
             render={({ field }) => (
               <>
-                <input {...field} type="text" id="city" placeholder="Enter your city" className="border-b border-[#dcdcdc]" />
+                <input {...field} type="text" id="city" placeholder="Enter your city" className="border-b w-full border-[#dcdcdc]" />
                 {errors.city && <span className="text-red-500 text-sm block">{errors.city.message}</span>}
               </>
             )}
           />
         </div>
-        <div className="space-y-4 w-1/2">
+        <div className="space-y-4 w-full md:w-1/2">
           <Label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">Postal Code</Label>
           <Controller
             name="postalCode"
@@ -125,7 +125,7 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
             }}
             render={({ field }) => (
               <>
-                <input {...field} type="text" id="postalCode" placeholder="Enter your postal code" className="border-b border-[#dcdcdc]" />
+                <input {...field} type="text" id="postalCode" placeholder="Enter your postal code" className="border-b w-full border-[#dcdcdc]" />
                 {errors.postalCode && <span className="text-red-500 text-sm block">{errors.postalCode.message}</span>}
               </>
             )}
@@ -170,7 +170,7 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
         />
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap md:flex-nowrap">
         <Button type="button" onClick={onPrevious} variant="outline" className="text-[#000000] border-black border border-solid text-black py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
           Previous
         </Button>

@@ -86,8 +86,8 @@ export default async function Book() {
       </h5>
       {/* <DonationFaq /> */}
       <section className="container mx-auto md:py-18 py-10 max-w-[1480px]">
-        <div className="flex flex-wrap md:flex-nowrap gap-10">
-          <div className="md:w-1/2 grid  w-full p-[20px] md:p-[48px] rounded-[30px] border border-[#dcdcdc] md:m-[0] m-0 ">
+        <div className="flex flex-wrap lg:flex-nowrap gap-10">
+          <div className="lg:w-1/2 grid  w-full p-[20px] md:p-[48px] rounded-[30px] border border-[#dcdcdc] md:m-[0] m-0 ">
               
           <DonationWizard
             heading={data.page.donatePageFeilds.donateSecondSectionLeftHeading}
@@ -95,7 +95,7 @@ export default async function Book() {
           />              
            
           </div>
-          <div className="w-1/2">
+          <div className="lg:w-1/2 w-full">
             <Image src={donation} width="733" height="791" alt=""></Image>
           </div>
         </div>

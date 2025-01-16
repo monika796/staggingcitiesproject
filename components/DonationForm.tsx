@@ -70,7 +70,7 @@ export default function App({ heading, description }) {
               />
             )}
           
-          <div className="px-6 py-4 flex justify-between items-center">
+          <div className=" p-0 mt-10 md:mt-0 md:px-6 md:py-4 flex justify-between items-center">
             <div>Step {step} of 3</div>
 
         </div>

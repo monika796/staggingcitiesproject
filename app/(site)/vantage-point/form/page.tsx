@@ -94,7 +94,7 @@ const Form = async () => {
             width={2000}
             height={2000}
             src={data.page.vantageForm.vantageFormSecondSectionFirstColumnImage?.node?.link}
-            className="object-cover object-right xl:h-[363px]"
+            className="object-cover object-right xl:h-[363px]  md:h-[263px]"
             alt="Vantage Image 1"
           />
           <div className="middle-content bg-[#263519] p-4 xl:p-8">
@@ -120,7 +120,7 @@ const Form = async () => {
             width={2000}
             height={2000}
             src={data.page.vantageForm.vantageFormSecondSectionThirdColumnImage?.node?.link}
-            className="object-cover object-center xl:h-[363px]"
+            className="object-cover object-center xl:h-[363px] md:h-[263px]"
             alt="Vantage Image 2"
           />
         </div>
