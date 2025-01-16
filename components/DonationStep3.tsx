@@ -21,7 +21,7 @@ type Step3Props = {
   country?: string;
 }
 
-const stripePromise = loadStripe("pk_test_51QY8C2CYqWp3gxgG1bnBgMuQEvvuFnu0yuMXpw3QamfBrZwniD5CVVlK2u8JRrO4XY70lg641ZlLmKB1xWOVnGuN00mbkEJM1p");
+const stripePromise = loadStripe(`${process.env.NEXT_STRIPE_PUBLISH_KEY}`);
 
 export default function Step3({
   onSubmit,
@@ -67,7 +67,7 @@ export default function Step3({
         },
       };
 
-      fetch("https://digitractive.com/cityprojectglobal/stripephp/create.php", {
+      fetch(`${process.env.NEXT_BACKEND_STRIPE_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -175,7 +175,7 @@ export default function Step3({
             {confirmed ? <CompletePage /> : <CheckoutForm />}
             </Elements>
         ) : (
-            <div className='pt-20 pb-20'><p>Loading payment details...</p></div>
+            <div className='pt-20 pb-20'><p>Loading...</p></div>
         )
         ) : null}
 

@@ -5,11 +5,11 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm() {
+export default function VantageCheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -27,7 +27,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${process.env.NEXT_STRIPE_DONATION_RETURN_URL}`,
+        return_url: `${process.env.NEXT_STRIPE_VANTAGE_RETURN_URL}`,
       },
     });
 
@@ -36,18 +36,20 @@ export default function CheckoutForm() {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
-    }
+    if (error) {
+        if (error.type === "card_error" || error.type === "validation_error") {
+          setMessage(error.message || "An error occurred");
+        } else {
+          setMessage("An unexpected error occurred.");
+        }
+      }
 
     setIsLoading(false);
   };
 
   const paymentElementOptions = {
-    layout: "tabs"
-  }
+    layout: "tabs" as const, // Explicitly define 'tabs' as a valid layout value
+  };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
