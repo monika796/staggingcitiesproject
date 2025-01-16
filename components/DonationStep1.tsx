@@ -59,7 +59,7 @@ export default function Step1({ onNext, heading, description}: Step1Props) {
                   }
                 })}
                   type="tel"
-                  className="text-[#000000] !w-[200px] border p-2 w-full rounded-md focus:outline-none border-none focus:border-none"
+                  className="text-[#000000] max-w-[100px] md:max-w-[200px] border p-2 w-full rounded-md focus:outline-none border-none focus:border-none"
                   placeholder="0.00"
                   onBlur={handleBlur}
                 />{' '}
