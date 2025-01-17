@@ -26,7 +26,7 @@ const SecondSection = () => {
   const [formData, setFormData] = useState<Partial<FormData>>({});
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const myRef = useRef<HTMLDivElement | null>(null);
-
+  const divRef = useRef<HTMLDivElement>(null);
   const {
     register,
     handleSubmit,
@@ -44,7 +44,9 @@ const SecondSection = () => {
       const params = new URLSearchParams(window.location.search);
       if (params.get('redirect_status') === 'succeeded') {
         setSuccessMessage('Payment succeeded! Thank you for your contribution.');
-        
+        if (divRef.current) {
+          divRef.current.focus();
+        }
         // Automatically remove the success message after 5 seconds
         // const timer = setTimeout(() => {
         //   setSuccessMessage(null);
@@ -62,12 +64,17 @@ const SecondSection = () => {
         <div className="flex flex-wrap md:flex-nowrap gap-3 justify-between">
           {/* Form Section */}
           <div className="md:w-8/12">
-            <div className="w-full mt-10">
+            <div className="w-full mt-10" >
+              <div   ref={divRef}  tabIndex={0} >
+
+              
             {successMessage && (
-              <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
+              <div     className="bg-green-100 text-green-700 p-4 rounded mb-6">
                 {successMessage}
               </div>
+
             )}
+            </div>
               <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
                 {/* Panel 1 */}
                 <div className="mb-6">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import Step1 from "./DonationStep1";
 import Step2 from "./DonationStep2";
 import Step3 from "./DonationStep3";
@@ -42,12 +42,17 @@ export default function App({ heading, description }) {
     console.log("Donation submitted:", finalData);
     // Send the data to your backend here
   };
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('redirect_status') === 'succeeded') {
+
       setSuccessMessage('Payment succeeded! Thank you for your contribution.');
-      
+      if (divRef.current) {
+        divRef.current.focus();
+      }
+
       // Automatically remove the success message after 5 seconds
       // const timer = setTimeout(() => {
       //   setSuccessMessage(null);
@@ -61,7 +66,7 @@ export default function App({ heading, description }) {
   return (
       <div className="App">
         {successMessage && (
-            <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
+            <div   ref={divRef}  tabIndex={0}  className="bg-green-100 text-green-700 p-4 rounded mb-6">
               {successMessage}
             </div>
           )}
