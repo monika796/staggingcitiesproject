@@ -12,6 +12,7 @@ type VantageStripe = {
   firstName?: string
   lastName?: string
   email?: string
+  phone?: string;
   postalCode?: string
   street?: string;
   city?: string;
@@ -28,6 +29,7 @@ export default function VantageStripeForm({
   firstName,
   lastName,
   email,
+  phone,
   postalCode,
   street,
   city,
@@ -53,6 +55,7 @@ export default function VantageStripeForm({
           firstName,
           lastName,
           email,
+          phone,
           postalCode,
           street,
           city,
