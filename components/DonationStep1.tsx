@@ -6,30 +6,24 @@ type Step1Props = {
   onNext: (data: any) => void,
   heading?: string
   description?: string
+  amount?: string;
+  frequency?: string;
+  paymentMethod?: "card" | "bank";
 }
 
-export default function Step1({ onNext, heading, description}: Step1Props) {
-  const { register, handleSubmit, setValue, getValues } = useForm()
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+export default function Step1({ onNext, heading, description, amount, frequency, paymentMethod}: Step1Props) {
+  const { register, handleSubmit, setValue, getValues } = useForm({
+    defaultValues: {
+      amount: amount || '',
+      frequency: frequency || 'one-time',
+      paymentMethod: paymentMethod || 'card',
+    },
+  })
   // const today = new Date().toISOString().split('T')[0]
   const onSubmit = (data: any) => {
     onNext(data)
   }
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('redirect_status') === 'succeeded') {
-      setSuccessMessage('Payment succeeded! Thank you for your contribution.');
-      
-      // Automatically remove the success message after 5 seconds
-      const timer = setTimeout(() => {
-        setSuccessMessage(null);
-      }, 5000);
-  
-      // Cleanup function to clear the timer
-      return () => clearTimeout(timer);
-    }
-  }, []);  
 
   const handleBlur = () => {
     const value = getValues('amount');
@@ -40,11 +34,6 @@ export default function Step1({ onNext, heading, description}: Step1Props) {
 
   return (
     <div>
-    {successMessage && (
-      <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
-        {successMessage}
-      </div>
-    )}
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
     <div className="space-y-4">
     <h1 className="text-[32px] md:text-[76px] text-[#000000] font-normal text-center leading-[51px]">

@@ -6,19 +6,29 @@ import { countries } from '@/components/CountryList';
 type Step2Props = {
   onNext: (data: any) => void;
   onPrevious: () => void;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: number;
+  postalCode?: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  country?: string;
 };
 
-export default function Step2({ onNext, onPrevious }: Step2Props) {
+export default function Step2({ onNext, onPrevious, firstName, lastName, email, phone, postalCode, street, city, state, country }: Step2Props) {
   const { handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      postalCode: '',
-      street: '',
-      city: '',
-      state: '',
-      country: '',
+      firstName: firstName || '',
+      lastName: lastName || '',
+      email: email || '',
+      phone: phone || '',
+      postalCode: postalCode || '',
+      street: street || '',
+      city: city || '',
+      state: state || '',
+      country: country || '',
     },
   });
 
@@ -80,6 +90,27 @@ export default function Step2({ onNext, onPrevious }: Step2Props) {
             <>
               <input {...field} type="email" id="email" placeholder="Enter your email" className="w-full border-b border-[#dcdcdc]" />
               {errors.email && <span className="text-red-500 text-sm block">{errors.email.message}</span>}
+            </>
+          )}
+        />
+      </div>
+      
+      <div className="space-y-4">
+        <Label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</Label>
+        <Controller
+          name="phone"
+          control={control}
+          rules={{
+            required: 'Phone number is required',
+            pattern: {
+              value: /^[0-9]{10,15}$/,
+              message: 'Phone number must be 10 to 15 digits',
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <input {...field} type="tel" id="phone" placeholder="Enter your phone number" className="w-full border-b border-[#dcdcdc]" />
+              {errors.phone && <span className="text-red-500 text-sm block">{errors.phone.message}</span>}
             </>
           )}
         />

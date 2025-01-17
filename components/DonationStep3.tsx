@@ -14,6 +14,7 @@ type Step3Props = {
   firstName?: string
   lastName?: string
   email?: string
+  phone?: number
   postalCode?: string
   street?: string;
   city?: string;
@@ -32,6 +33,7 @@ export default function Step3({
   firstName,
   lastName,
   email,
+  phone,
   postalCode,
   street,
   city,
@@ -59,6 +61,7 @@ export default function Step3({
           firstName,
           lastName,
           email,
+          phone,
           postalCode,
           street,
           city,
