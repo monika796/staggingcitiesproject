@@ -81,8 +81,8 @@ const SecondSection = () => {
                       isPanelOneOpen ? "max-h-screen" : "max-h-0"
                     }`}
                   >
-                    <div className="flex gap-10">
-                      <div className="md:w-6/12">
+                    <div className="flex gap-10 flex-wrap md:flex-nowrap mt-10 md:mt-0">
+                      <div className="md:w-6/12 w-full">
                         <input
                           type="text"
                           placeholder="First Name"
@@ -94,7 +94,7 @@ const SecondSection = () => {
                           <p className="text-red-500">{errors.firstName.message}</p>
                         )}
                       </div>
-                      <div className="md:w-6/12">
+                      <div className="md:w-6/12  w-full">
                         <input
                           type="text"
                           placeholder="Last Name"
@@ -107,8 +107,8 @@ const SecondSection = () => {
                         )}
                       </div>
                     </div>
-                    <div className="flex gap-10 mt-5">
-                      <div className="md:w-6/12">
+                    <div className="flex gap-10 flex-wrap md:flex-nowrap mt-10 md:mt-5">
+                      <div className="md:w-6/12 w-full">
                         <input
                           type="email"
                           placeholder="Email"
@@ -126,7 +126,7 @@ const SecondSection = () => {
                           <p className="text-red-500">{errors.email.message}</p>
                         )}
                       </div>
-                      <div className="md:w-6/12">
+                      <div className="md:w-6/12 w-full">
                         <input
                           type="text"
                           placeholder="Phone"
@@ -139,7 +139,7 @@ const SecondSection = () => {
                         )}
                       </div>
                     </div>
-                    <div className="mt-5">
+                    <div className="mt-10 md:mt-5">
                       <input
                         type="text"
                         placeholder="Street Address"
@@ -151,8 +151,8 @@ const SecondSection = () => {
                         <p className="text-red-500">{errors.streetAddress.message}</p>
                       )}
                     </div>
-                    <div className="flex gap-10 mt-5">
-                      <div className="md:w-6/12">
+                    <div className="flex gap-10  flex-wrap md:flex-nowrap mt-10 md:mt-5">
+                      <div className="md:w-6/12 w-full">
                         <input
                           type="text"
                           placeholder="City"
@@ -164,7 +164,7 @@ const SecondSection = () => {
                           <p className="text-red-500">{errors.city.message}</p>
                         )}
                       </div>
-                      <div className="md:w-6/12">
+                      <div className="md:w-6/12 w-full">
                         <input
                           type="text"
                           placeholder="State"
