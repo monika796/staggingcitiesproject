@@ -103,8 +103,8 @@ export default function Step2({ onNext, onPrevious, firstName, lastName, email, 
           rules={{
             required: 'Phone number is required',
             pattern: {
-              value: /^[0-9]{10,15}$/,
-              message: 'Phone number must be 10 to 15 digits',
+              value: /^\+?[0-9 ]{10,20}$/,
+               message: 'Phone number must be 10 to 15 digits and can optionally start with +',
             },
           }}
           render={({ field }) => (
