@@ -35,7 +35,8 @@ const SecondSection = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // console.log("Form submitted:", data);
-    setFormData(data);
+    setFormData(data)
+    setSuccessMessage(null)
     myRef.current?.scrollIntoView()
   };
 
@@ -45,12 +46,12 @@ const SecondSection = () => {
         setSuccessMessage('Payment succeeded! Thank you for your contribution.');
         
         // Automatically remove the success message after 5 seconds
-        const timer = setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000);
+        // const timer = setTimeout(() => {
+        //   setSuccessMessage(null);
+        // }, 5000);
     
-        // Cleanup function to clear the timer
-        return () => clearTimeout(timer);
+        // // Cleanup function to clear the timer
+        // return () => clearTimeout(timer);
       }
     }, []);  
   
@@ -62,6 +63,11 @@ const SecondSection = () => {
           {/* Form Section */}
           <div className="md:w-8/12">
             <div className="w-full mt-10">
+            {successMessage && (
+              <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
+                {successMessage}
+              </div>
+            )}
               <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
                 {/* Panel 1 */}
                 <div className="mb-6">
@@ -132,7 +138,13 @@ const SecondSection = () => {
                           placeholder="Phone"
                           id="detail_phone"
                           className="bg-transparent w-full border-b py-3 border-[#CDCDCD]"
-                          {...register("phone", { required: "Phone is required" })}
+                          {...register("phone", {
+                            required: "Phone is required",
+                            pattern: {
+                              value: /^\+?[0-9 ]{10,20}$/,
+                              message: "Phone number must be 10 to 15 digits and can optionally start with +",
+                            },
+                          })}
                         />
                         {errors.phone && (
                           <p className="text-red-500">{errors.phone.message}</p>
@@ -291,23 +303,18 @@ const SecondSection = () => {
                   <option value="1-license">1 License ($24.99)</option>
                 </select>
               </div>
-              {successMessage && (
-              <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
-                {successMessage}
-              </div>
-            )}
               {formData.firstName && (
                 <VantageStripe
                   paymentMethod="card"
                   frequency="vantage"
                   amount={formData.amount}
                   firstName={formData.firstName}
-                  lastName={formData.firstName}
-                  email={formData.firstName}
-                  postalCode={formData.firstName}
-                  street={formData.firstName}
-                  city={formData.firstName}
-                  state={formData.firstName}
+                  lastName={formData.lastName}
+                  email={formData.email}
+                  postalCode={formData.zip}
+                  street={formData.streetAddress}
+                  city={formData.city}
+                  state={formData.state}
                   country={formData.country}
                 />
               )}
