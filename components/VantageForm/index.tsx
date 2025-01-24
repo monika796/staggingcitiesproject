@@ -20,7 +20,7 @@ type FormData = {
   agreeToTerms: boolean;
 };
 
-const SecondSection = () => {
+const SecondSection = ({ pdfData }) => {
   const [isPanelOneOpen, setIsPanelOneOpen] = useState(true);
   const [isPanelTwoOpen, setIsPanelTwoOpen] = useState(false);
   const [formData, setFormData] = useState<Partial<FormData>>({});
@@ -38,6 +38,24 @@ const SecondSection = () => {
     setFormData(data)
     setSuccessMessage(null)
     myRef.current?.scrollIntoView()
+  };
+
+  const handleDownload = async (url: string) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch the PDF file.");
+      }
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      const filename = url.split("/").pop() || "file.pdf";
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Error downloading the PDF:", error);
+    }
   };
 
   useEffect(() => {
@@ -65,14 +83,22 @@ const SecondSection = () => {
           {/* Form Section */}
           <div className="md:w-8/12">
             <div className="w-full mt-10" >
-              <div   ref={divRef}  tabIndex={0} >
-
-              
+            <div ref={divRef}  tabIndex={0} >              
             {successMessage && (
-              <div     className="bg-green-100 text-green-700 p-4 rounded mb-6">
+              <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
                 {successMessage}
+                {pdfData &&
+                  pdfData.map((pdfItem, index) => (
+                  <div key={index}>
+                  <button
+                    onClick={() => handleDownload(pdfItem.uploadPdf.node.link)}
+                    className="text-blue-500 underline"
+                  >
+                    Download PDF
+                  </button>
               </div>
-
+                   ))}
+               </div>
             )}
             </div>
               <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
