@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js"
 import CheckoutForm from "@/components/VantageCheckoutForm";
 import CompletePage from "@/components/CompletePage";
+import { Circles } from 'react-loader-spinner';
 
 type VantageStripe = {
   paymentMethod?: 'card' | 'bank'
@@ -87,7 +88,8 @@ export default function VantageStripeForm({
             {confirmed ? <CompletePage /> : <CheckoutForm />}
           </Elements>
         ) : (
-          <div className='pt-20 pb-20'><p>Loading...</p></div>
+          <div className='flex justify-center pt-20 pb-20'>
+            <Circles height="80" width="80" color="#a1cf5f" ariaLabel="loading" /></div>
         )}
     </div>
   );

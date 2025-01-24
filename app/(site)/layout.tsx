@@ -13,7 +13,7 @@ const anton = Anton({ weight: '400', subsets: ['latin'] }) // Configure Anton wi
 
 import ToasterContext from '../context/ToastContext'
 import { ApolloProvider } from '@apollo/client'
-import client from 'apollo-client'
+import client from '../../apollo-client'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   // useEffect(() => {

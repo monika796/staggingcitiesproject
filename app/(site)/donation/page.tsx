@@ -9,6 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import donation from '/public/109.png'
 import DonationWizard from '@/components/DonationForm'
+import { fetchData } from '@/lib/fetchData'
 
 export const revalidate = 60 // revalidate at most every 5 minutes
 const anton = Anton({ weight: '400', subsets: ['latin'] })
@@ -64,16 +65,10 @@ const POSTS_QUERY = gql`
     }
   }
 `
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
-export default async function Book() {
-  const today = new Date().toISOString().split('T')[0]
 
-  const data = await fetchData()
+export default async function Book() {
+  // const data = await fetchData(POSTS_QUERY)
+  const data = await fetchData(POSTS_QUERY)
   return (
     <main className="md:w-[90%] pt-10  mx-auto max-w-[1480px]">
       <h1 className="md:py-[15px] pt-10 py-[10px] md:text-[40px] text-[25px] font-bold text-center text-black md:w-[52%]     mx-auto md:leading-[49px] ">
@@ -88,12 +83,10 @@ export default async function Book() {
       <section className="container mx-auto md:py-18 py-10 max-w-[1480px]">
         <div className="flex flex-wrap lg:flex-nowrap gap-10">
           <div className="lg:w-1/2 grid  w-full p-[20px] md:p-[48px] rounded-[30px] border border-[#dcdcdc] md:m-[0] m-0 ">
-              
-          <DonationWizard
-            heading={data.page.donatePageFeilds.donateSecondSectionLeftHeading}
-            description={data.page.donatePageFeilds.donateSecondSectionLeftDescription}
-          />              
-           
+            <DonationWizard
+              heading={data.page.donatePageFeilds.donateSecondSectionLeftHeading}
+              description={data.page.donatePageFeilds.donateSecondSectionLeftDescription}
+            />
           </div>
           <div className="lg:w-1/2 w-full">
             <Image src={donation} width="733" height="791" alt=""></Image>

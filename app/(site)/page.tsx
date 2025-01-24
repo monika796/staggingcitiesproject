@@ -8,7 +8,7 @@ import StoriesSliderHome from '@/components/PostSlider'
 import { Suspense, useContext } from 'react'
 import { DocumentNode, gql, useQuery } from '@apollo/client'
 import { Anton } from 'next/font/google'
-import client from 'apollo-client'
+// import client from 'apollo-client'
 import Partner from '@/components/partner'
 import SwiperSection from '@/components/postbannerslider'
 import ReactPlayer from 'react-player'
@@ -29,7 +29,7 @@ import {
   HOME_HERO_NEWS_QUERY,
 } from '@/queries/queries'
 import MainComponent from '@/components/LightboxPdf'
-
+import { fetchData } from '@/lib/fetchData'
 export const revalidate = 60 // revalidate at most every 5 minutes
 
 // export const metadata: Metadata = {
@@ -58,29 +58,29 @@ const ThreeStatement = ({ subtitle, heading, paragraph, image, imageAlignment })
     </div>
   )
 }
-async function fetchData(query: DocumentNode = HOME_PAGE_QUERY) {
-  const { data } = await client.query({
-    query,
-    fetchPolicy: 'cache-first',
-  })
-  return data
-}
+// async function fetchData(query: DocumentNode = HOME_PAGE_QUERY) {
+//   const { data } = await client.query({
+//     query,
+//     fetchPolicy: 'cache-first',
+//   })
+//   return data
+// }
 
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-}
+// const sliderSettings = {
+//   dots: true,
+//   infinite: true,
+//   speed: 500,
+//   slidesToShow: 1,
+//   slidesToScroll: 1,
+// }
 export default async function Home() {
-  const data = await fetchData()
+  const data = await fetchData(HOME_PAGE_QUERY)
   const stories = await fetchData(STORIES_QUERY)
   const testimonials = await fetchData(TESTIMONIAL_QUERY)
   const videos = await fetchData(HOME_VIDEO_QUERY)
   const heroNews = await fetchData(HOME_HERO_NEWS_QUERY)
 
-  console.log('heroNews::::', heroNews)
+  // console.log('heroNews::::', heroNews)
 
   return (
     <main className="mt-[-96px]">

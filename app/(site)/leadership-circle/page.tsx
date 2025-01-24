@@ -15,24 +15,19 @@ import Collective from '/public/collective.png'
 import VideoPlayer from '@/components/Leadershipvideosection'
 import Link from 'next/link'
 import Newsletter from '@/components/Newsletter'
-import { gql } from '@apollo/client'
+// import { gql } from '@apollo/client'
 import client from 'apollo-client'
 import parse from 'html-react-parser'
 import MainComponent from '@/components/LightboxPdf'
 import LastFiveSection from '@/components/lastfiveimages'
 import SwiperSectionLeaderhsip from '@/components/leadershipcommunityslider'
 import { LEADERSHIP_PAGE_QUERY } from '@/queries/queries'
+import { fetchData } from '@/lib/fetchData'
+
 export const revalidate = 60 // revalidate at most every 5 minutes
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: LEADERSHIP_PAGE_QUERY,
-  })
-  return data
-}
-
 const page = async () => {
-  const data = await fetchData()
+  const data = await fetchData(LEADERSHIP_PAGE_QUERY)
   return (
     <div className="container mx-auto max-w-[1480px]">
       <section>

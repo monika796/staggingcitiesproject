@@ -97,6 +97,7 @@ export const HOME_PAGE_QUERY = gql`
         buttontxtthird
       }
       homefourtsection {
+        __typename
         mainheadingfourth
         firstimage {
           node {

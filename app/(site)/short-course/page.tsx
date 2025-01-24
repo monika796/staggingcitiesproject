@@ -8,6 +8,7 @@ import client from 'apollo-client'
 import SwiperSectionshortcourses from '@/components/shortcourseproductslider'
 import ReviewFirstSlider from '@/components/shortcoursereviewslider/Firstslider'
 import ReviewSecondSlider from '@/components/shortcoursereviewslider/Secondslider'
+import { fetchData } from '@/lib/fetchData'
 export const revalidate = 60 // revalidate at most every 5 minutes
 
 const POSTS_QUERY = gql`
@@ -115,16 +116,9 @@ const POSTS_QUERY = gql`
   }
 `
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
-
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 const ShortCoursePage = async () => {
-  const data = await fetchData()
+  const data = await fetchData(POSTS_QUERY)
 
   const shortcourse = data.page.shortCourseFields
   return (
