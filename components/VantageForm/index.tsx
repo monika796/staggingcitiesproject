@@ -40,23 +40,28 @@ const SecondSection = ({ pdfData }) => {
     myRef.current?.scrollIntoView()
   };
 
-  const handleDownload = async (url: string) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch the PDF file.");
-      }
-      const blob = await response.blob();
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      const filename = url.split("/").pop() || "file.pdf";
-      link.download = filename;
-      link.click();
-      URL.revokeObjectURL(link.href);
-    } catch (error) {
-      console.error("Error downloading the PDF:", error);
+ const [loading, setLoading] = useState(false);
+
+const handleDownload = async (url: string) => {
+  setLoading(true);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch the PDF file. Status: ${response.status}`);
     }
-  };
+    const blob = await response.blob();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    const filename = decodeURIComponent(url.split("/").pop() || "file.pdf");
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  } catch (error) {
+    console.error("Error downloading the PDF:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
       const params = new URLSearchParams(window.location.search);
