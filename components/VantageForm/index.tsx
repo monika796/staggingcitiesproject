@@ -103,20 +103,40 @@ const SecondSection = ({ pdfData }) => {
             <div ref={divRef}  tabIndex={0} > 
             {successMessage && (
               <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
-                {successMessage}
+                {successMessage}                
+                {pdfData && Array.isArray(pdfData) && pdfData.length > 0 ? (
+                  <div>
+                   
+                    {pdfData.map((pdfItem, index) => (
+                      <div key={index}>
+                        <button
+                          onClick={() => handleDownload(pdfItem.uploadPdf.node.mediaItemUrl)}
+                          className="text-blue-500 underline"
+                        >
+                          Download PDF
+                        </button>
+                      </div>
+                    ))}
+                    <div className="mt-5">
+                    {pdfData.length > 1 && (
+                      <button
+                      onClick={async () => {
+                        for (const pdfItem of pdfData) {
+                          await new Promise((resolve) => setTimeout(resolve, 500)); // Add 1-second delay between each download
+                          await handleDownload(pdfItem.uploadPdf.node.mediaItemUrl);
+                        }
+                      }}
+                      className="text-blue-500 underline mb-4"
+                    >
+                      Download All PDFs
+                    </button>
+                    )}
+                    </div>
+                  </div>
+                ) : (
+                  <p>No PDFs available</p>
+                )}
 
-                
-                {pdfData &&
-                  pdfData.map((pdfItem, index) => (
-                  <div key={index}>
-                  <button
-                    onClick={() => handleDownload(pdfItem.uploadPdf.node.mediaItemUrl)}
-                    className="text-blue-500 underline"
-                  >
-                    Download PDF
-                  </button>
-              </div>
-                   ))}
                </div>
             )}
             </div>
