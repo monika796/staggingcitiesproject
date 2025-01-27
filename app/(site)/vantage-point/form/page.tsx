@@ -17,6 +17,7 @@ const POSTS_QUERY = gql`
           uploadPdf {
             node {
               link
+              mediaItemUrl
             }
           }
         }

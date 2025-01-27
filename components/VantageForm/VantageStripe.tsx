@@ -19,6 +19,7 @@ type VantageStripe = {
   city?: string;
   state?: string;
   country?: string;
+  pdf?: string;
 }
 
 const stripePromise = loadStripe(`${process.env.NEXT_STRIPE_PUBLISH_KEY}`);
@@ -36,6 +37,7 @@ export default function VantageStripeForm({
   city,
   state,
   country,
+  pdf,
 }: VantageStripe) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
@@ -50,6 +52,7 @@ export default function VantageStripeForm({
             amount: finalAmount,
             frequency,
             paymentMethod,
+            pdf,
           },
         ],
         customer: {
