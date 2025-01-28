@@ -107,7 +107,7 @@ const SecondSection = ({ pdfData }) => {
                 {pdfData && Array.isArray(pdfData) && pdfData.length > 0 ? (
                   <div>
                    
-                    {/* {pdfData.map((pdfItem, index) => (
+                    {pdfData.map((pdfItem, index) => (
                       <div key={index}>
                         <button
                           onClick={() => handleDownload(pdfItem.uploadPdf.node.mediaItemUrl)}
@@ -116,9 +116,9 @@ const SecondSection = ({ pdfData }) => {
                           Download PDF
                         </button>
                       </div>
-                    ))} */}
-                    <div>
-                    {pdfData.length >= 1 && (
+                    ))}
+                    <div className="mt-5">
+                    {pdfData.length > 1 && (
                       <button
                       onClick={async () => {
                         for (const pdfItem of pdfData) {
@@ -128,7 +128,7 @@ const SecondSection = ({ pdfData }) => {
                       }}
                       className="text-blue-500 underline mb-4"
                     >
-                      Click here to download file
+                      Download All PDFs
                     </button>
                     )}
                     </div>
