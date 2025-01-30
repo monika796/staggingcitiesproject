@@ -165,7 +165,7 @@ const page = async () => {
                   } // Pass dynamic text as prop
                   pdfUrl={
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
-                      .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonLink
+                      .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonLink?.node?.link
                   } // Pass the dynamic PDF URL
                 />
               </div>
@@ -200,7 +200,7 @@ const page = async () => {
                   } // Pass dynamic text as prop
                   pdfUrl={
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
-                      .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonLink
+                      .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonLink?.node?.link
                   } // Pass the dynamic PDF URL
                 />
               </div>

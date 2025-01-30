@@ -9,6 +9,8 @@ import "swiper/css/pagination";
 import { gql } from "@apollo/client";
 import client from "apollo-client";
 import parse from 'html-react-parser'
+import ReactPlayer from 'react-player'
+
 
 const POSTS_QUERY = gql`
   query MyQuery2 {
@@ -124,6 +126,7 @@ const SwiperSectionLeadership = () => {
           </Swiper>
         </div>
       </section>
+     
 
       {/* Lightbox Video Modal */}
       <Modal 
@@ -136,7 +139,8 @@ const SwiperSectionLeadership = () => {
           <div className="relative">
             <button onClick={closeModal} className="z-99999 absolute top-2 right-2 text-white text-xl">✖</button>
 
-            {parse(videoUrl || '')}
+            {/* {parse(videoUrl || '')} */}
+            <ReactPlayer url={videoUrl} />
           </div>
         </Modal>
 
