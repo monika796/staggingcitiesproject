@@ -561,7 +561,11 @@ export const LEADERSHIP_PAGE_QUERY = gql`
             }
           }
           leadershipSecondSectionSecondColumnBox {
-            leadershipSecondSectionSecondColumnBoxButtonLink
+            leadershipSecondSectionSecondColumnBoxButtonLink{
+            node {
+              link
+            }
+          }
             leadershipSecondSectionSecondColumnBoxButtonText
             leadershipSecondSectionSecondColumnBoxDescription
             leadershipSecondSectionSecondColumnBoxHeading
