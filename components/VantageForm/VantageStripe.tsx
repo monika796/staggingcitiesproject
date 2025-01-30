@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js"
 import CheckoutForm from "@/components/VantageCheckoutForm";
 import CompletePage from "@/components/CompletePage";
+import { Circles } from 'react-loader-spinner';
 
 type VantageStripe = {
   paymentMethod?: 'card' | 'bank'
@@ -18,6 +19,7 @@ type VantageStripe = {
   city?: string;
   state?: string;
   country?: string;
+  pdf?: string;
 }
 
 const stripePromise = loadStripe(`${process.env.NEXT_STRIPE_PUBLISH_KEY}`);
@@ -35,6 +37,7 @@ export default function VantageStripeForm({
   city,
   state,
   country,
+  pdf,
 }: VantageStripe) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
@@ -49,6 +52,7 @@ export default function VantageStripeForm({
             amount: finalAmount,
             frequency,
             paymentMethod,
+            pdf,
           },
         ],
         customer: {
@@ -87,7 +91,8 @@ export default function VantageStripeForm({
             {confirmed ? <CompletePage /> : <CheckoutForm />}
           </Elements>
         ) : (
-          <div className='pt-20 pb-20'><p>Loading...</p></div>
+          <div className='flex justify-center pt-20 pb-20'>
+            <Circles height="80" width="80" color="#a1cf5f" ariaLabel="loading" /></div>
         )}
     </div>
   );

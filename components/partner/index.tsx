@@ -2,10 +2,9 @@ import { Anton } from 'next/font/google'
 import { gql } from '@apollo/client'
 import React from 'react'
 import Image from 'next/image'
-const anton = Anton({ weight: '400', subsets: ['latin'] })
-import client from 'apollo-client'
 import Link from 'next/link'
-const POSTS_QUERY = gql`
+import { fetchData } from '@/lib/fetchData'
+const PARTNER_QUERY = gql`
   query {
     page(id: "cG9zdDoxNg==") {
       patnerssection {
@@ -78,14 +77,9 @@ const POSTS_QUERY = gql`
     }
   }
 `
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
+
 export default async function Partner() {
-  const data = await fetchData()
+  const data = await fetchData(PARTNER_QUERY)
 
   const { patnerssection, homesixthsection } = data.page
   const partner_immm = data.page.patnerssection.partnerImages.partnerImages
@@ -103,7 +97,10 @@ export default async function Partner() {
           />
           <div className="  grid md:grid-cols-5 grid-cols-2  items-center sm:flex sm:flex-wrap justify-center gap-5 md:w-[100%] lg:w-[100%] mx-auto pt-[29px]">
             {partner_immm.map((partner_images, index) => (
-              <div className="p-5 border border-[#e3e2e2] h-[160px] grid items-center grayscale hover:grayscale-0 transition-all duration-300 ease-in-out hover:border-[#a1cf5f] hover:shadow-md">
+              <div
+                key={index}
+                className="p-5 border border-[#e3e2e2] h-[160px] grid items-center grayscale hover:grayscale-0 transition-all duration-300 ease-in-out hover:border-[#a1cf5f] hover:shadow-md"
+              >
                 <Image
                   src={partner_images.addPartnersImages?.node?.link || '/No_Image.jpg'}
                   alt=""

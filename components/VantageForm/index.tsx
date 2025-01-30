@@ -18,9 +18,10 @@ type FormData = {
   country: string;
   amount: string;
   agreeToTerms: boolean;
+  pdf: string;
 };
 
-const SecondSection = () => {
+const SecondSection = ({ pdfData }) => {
   const [isPanelOneOpen, setIsPanelOneOpen] = useState(true);
   const [isPanelTwoOpen, setIsPanelTwoOpen] = useState(false);
   const [formData, setFormData] = useState<Partial<FormData>>({});
@@ -39,6 +40,40 @@ const SecondSection = () => {
     setSuccessMessage(null)
     myRef.current?.scrollIntoView()
   };
+
+
+  const handleDownload = async (pdfUrl: string) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_BACKEND_PDF_URL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pdfUrl: pdfUrl, // Pass the dynamic PDF URL to backend
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data.downloadUrl) {
+        // Create a link element for downloading the file
+        const link = document.createElement("a");
+        link.href = data.downloadUrl;  // Use the randomized download URL
+        link.download = "randomized-file.pdf"; // Give a default name, or customize
+        link.click();
+      } else {
+        console.error("Failed to generate the download URL");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
 
   useEffect(() => {
       const params = new URLSearchParams(window.location.search);
@@ -65,14 +100,44 @@ const SecondSection = () => {
           {/* Form Section */}
           <div className="md:w-8/12">
             <div className="w-full mt-10" >
-              <div   ref={divRef}  tabIndex={0} >
-
-              
+            <div ref={divRef}  tabIndex={0} > 
             {successMessage && (
-              <div     className="bg-green-100 text-green-700 p-4 rounded mb-6">
-                {successMessage}
-              </div>
+              <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
+                {successMessage}                
+                {pdfData && Array.isArray(pdfData) && pdfData.length > 0 ? (
+                  <div>
+                   
+                    {/* {pdfData.map((pdfItem, index) => (
+                      <div key={index}>
+                        <button
+                          onClick={() => handleDownload(pdfItem.uploadPdf.node.mediaItemUrl)}
+                          className="text-blue-500 underline"
+                        >
+                          Download PDF
+                        </button>
+                      </div>
+                    ))} */}
+                    <div>
+                    {pdfData.length >= 1 && (
+                      <button
+                      onClick={async () => {
+                        for (const pdfItem of pdfData) {
+                          await new Promise((resolve) => setTimeout(resolve, 500)); // Add 1-second delay between each download
+                          await handleDownload(pdfItem.uploadPdf.node.mediaItemUrl);
+                        }
+                      }}
+                      className="text-blue-500 underline mb-4"
+                    >
+                      Click here to download file
+                    </button>
+                    )}
+                    </div>
+                  </div>
+                ) : (
+                  <p>No PDFs available</p>
+                )}
 
+               </div>
             )}
             </div>
               <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
@@ -324,6 +389,7 @@ const SecondSection = () => {
                   city={formData.city}
                   state={formData.state}
                   country={formData.country}
+                  pdf={pdfData}
                 />
               )}
             </div>

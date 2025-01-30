@@ -15,26 +15,24 @@ import Collective from '/public/collective.png'
 import VideoPlayer from '@/components/Leadershipvideosection'
 import Link from 'next/link'
 import Newsletter from '@/components/Newsletter'
-import { gql } from '@apollo/client'
+// import { gql } from '@apollo/client'
 import client from 'apollo-client'
 import parse from 'html-react-parser'
 import MainComponent from '@/components/LightboxPdf'
 import LastFiveSection from '@/components/lastfiveimages'
 import SwiperSectionLeaderhsip from '@/components/leadershipcommunityslider'
 import { LEADERSHIP_PAGE_QUERY } from '@/queries/queries'
+import { fetchData } from '@/lib/fetchData'
+import Head from '../head'
+
+
 export const revalidate = 60 // revalidate at most every 5 minutes
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: LEADERSHIP_PAGE_QUERY,
-  })
-  return data
-}
-
 const page = async () => {
-  const data = await fetchData()
+  const data = await fetchData(LEADERSHIP_PAGE_QUERY)
   return (
     <div className="container mx-auto max-w-[1480px]">
+      <Head data={data} />
       <section>
         <h1 className="md:py-[42px] mt-4 py-[30px] max-w-[1178px] md:text-[64px] text-[25px] leading-[38px]  font-bold text-center text-black  p-5 mx-auto md:leading-[77px] ">
           {data.page.leadershipPageFeilds.leadershipMainHeading}
@@ -165,7 +163,10 @@ const page = async () => {
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
                       .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonText
                   } // Pass dynamic text as prop
-                  pdfUrl="Global LC 2024.pdf" // Pass the dynamic PDF URL
+                  pdfUrl={
+                    data.page.leadershipPageFeilds.leadershipSecondSectionFields
+                      .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonLink
+                  } // Pass the dynamic PDF URL
                 />
               </div>
 
@@ -197,7 +198,10 @@ const page = async () => {
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
                       .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonText
                   } // Pass dynamic text as prop
-                  pdfUrl="DLC 2024.pdf" // Pass the dynamic PDF URL
+                  pdfUrl={
+                    data.page.leadershipPageFeilds.leadershipSecondSectionFields
+                      .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonLink
+                  } // Pass the dynamic PDF URL
                 />
               </div>
             </div>

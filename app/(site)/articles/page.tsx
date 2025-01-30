@@ -1,30 +1,18 @@
 import Newsletter from '@/components/Newsletter'
-import { Metadata } from 'next'
-import { gql } from '@apollo/client'
-import client from 'apollo-client'
+// import { Metadata } from 'next'
+// import { gql } from '@apollo/client'
+// import client from 'apollo-client'
 import BlogCard from '@/components/Blogdata'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
-
-async function fetchData() {
-  const { data } = await client.query({
-    query: ARTICLES_PAGE_QUERY,
-  })
-  return data
-}
-async function fetchDataSecond() {
-  const { data } = await client.query({
-    query: ARTICLES_QUERY,
-  })
-  return data
-}
+import { fetchData } from '@/lib/fetchData'
 
 const BlogPage = async () => {
-  const postData = await fetchDataSecond()
-  const data = await fetchData()
+  const postData = await fetchData(ARTICLES_QUERY)
+  const data = await fetchData(ARTICLES_PAGE_QUERY)
 
   return (
     <>

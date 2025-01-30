@@ -9,28 +9,28 @@ import Image from 'next/image'
 import ProgramTestimonial from '@/components/programtestemonial'
 import { PROGRAM_PAGE_QUERY, TESTIMONIAL_QUERY, PROGRAM_TESTIMONIAL_QUERY } from '@/queries/queries'
 import Head from '../head'
+import { fetchData } from '@/lib/fetchData'
 export const revalidate = 60 // revalidate at most every 5 minutes
 
-async function fetchData(query = PROGRAM_PAGE_QUERY, fetchPolicy: any = 'cache-first') {
-  const { data } = await client.query({
-    query,
-    fetchPolicy: fetchPolicy,
-  })
-  return data
-}
-
 export default async function Programs() {
-  const data = await fetchData()
+  const data = await fetchData(PROGRAM_PAGE_QUERY)
   const testimonials = await fetchData(TESTIMONIAL_QUERY)
   const programTestimonials = await fetchData(PROGRAM_TESTIMONIAL_QUERY)
   return (
     <main className="md:w-[100%] mx-auto">
       <Head data={data} />
-      <h1 className="md:w-[100%] lg:w-[1178px] md:py-[42px] pt-4 py-[30px] md:text-[30px] lg:text-[64px] text-[25px] font-bold text-center text-black md:max-w-[1178px] p-5 mx-auto md:leading-[77px] ">
-        {data.page.programpagefeild.firstSectionMainHeading}
-      </h1>
+      <h1
+        className="md:w-[100%] lg:w-[1178px] md:py-[42px] pt-4 py-[30px] md:text-[30px] lg:text-[64px] text-[25px] font-bold text-center text-black md:max-w-[1178px] p-5 mx-auto md:leading-[77px] "
+        dangerouslySetInnerHTML={{ __html: data.page.programpagefeild.firstSectionMainHeading }}
+      />
       <section className="md:py-[42px] md:pt-0 relative container  max-w-[1480px] mx-auto">
-        <Image width={1500} height={1000} src="/85.png" className=" mx-auto p-2 md:p-0" alt="" />
+        <Image
+          width={1500}
+          height={1000}
+          src={data.page.programpagefeild.secondSectionImage.node.link}
+          className="mx-auto p-2 md:p-0 aspect-video object-cover max-h-[600px] rounded-md"
+          alt=""
+        />
         <div className="lg:flex pt-5 ">
           <div className="lg:w-2/5 relative md:p-10 md:pb-0 p-3">
             {/* <div className="md:absolute bottom-[5%]">  */}

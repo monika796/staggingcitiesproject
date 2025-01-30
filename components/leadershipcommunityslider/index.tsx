@@ -1,16 +1,15 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Keyboard, Mousewheel, Autoplay } from 'swiper/modules'
-import Image from 'next/image'
-import Link from 'next/link'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+'use client';
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Modal from "react-modal"; // Import modal library
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { gql } from "@apollo/client";
+import client from "apollo-client";
+import parse from 'html-react-parser'
 
-import { gql } from '@apollo/client'
-import client from 'apollo-client'
 const POSTS_QUERY = gql`
   query MyQuery2 {
     page(id: "cG9zdDo2MDg=") {
@@ -19,6 +18,7 @@ const POSTS_QUERY = gql`
           watchOurCommunitySlider {
             watchOurCommunitySliderAuthor
             watchOurCommunitySliderDesignation
+            watchOurCommunityVideoLink
             watchOurCommunitySliderImage {
               node {
                 link
@@ -29,70 +29,67 @@ const POSTS_QUERY = gql`
       }
     }
   }
-`
+`;
+
 interface WatchOurCommunitySlider {
-  watchOurCommunitySliderAuthor: string
-  watchOurCommunitySliderDesignation: string
+  watchOurCommunitySliderAuthor: string;
+  watchOurCommunitySliderDesignation: string;
+  watchOurCommunityVideoLink: string;
   watchOurCommunitySliderImage?: {
     node?: {
-      link: string
-    }
-  }
+      link: string;
+    };
+  };
 }
 
-const SwiperSectionLeaderhsip = () => {
-  const [posts, setPosts] = useState<WatchOurCommunitySlider[]>([])
+const SwiperSectionLeadership = () => {
+  const [posts, setPosts] = useState<WatchOurCommunitySlider[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
 
-  // Fetch data with Apollo client
   useEffect(() => {
     async function fetchData() {
       try {
         const { data } = await client.query({
           query: POSTS_QUERY,
-        })
-        // Limit posts to the first 4
-        setPosts(data?.page?.leadershipPageFeilds?.leadershipWatchOurCommunitySection?.watchOurCommunitySlider || [])
+        });
+        console.log("Fetched Data:", data);
+        setPosts(
+          data?.page?.leadershipPageFeilds?.leadershipWatchOurCommunitySection?.watchOurCommunitySlider || []
+        );
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching data:", error);
       }
     }
+    fetchData();
+  }, []);
 
-    fetchData()
-  }, [])
+  const openModal = (videoUrl: string) => {
+    setVideoUrl(videoUrl);
+    console.log("Video URL:", videoUrl);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setVideoUrl("");
+  };
 
   return (
     <>
       <section className="max-w-[1480px] mx-auto">
-        <div className="">
+        <div>
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-            }}
-            // pagination={{
-            //   clickable: false,
-            //   type: 'bullets',
-            // }}
-            // keyboard={{ enabled: true }}
-            // mousewheel={{ forceToAxis: true }}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
             loop={true}
-            // cssMode
-            slidesPerView={4} // Show 4 slides per view by default
-            spaceBetween={30} // Add space between slides
+            slidesPerView={4}
+            spaceBetween={30}
             breakpoints={{
-              1400: {
-                slidesPerView: 4, // 4 slides on large screens
-              },
-              1024: {
-                slidesPerView: 3, // 4 slides on large screens
-              },
-              768: {
-                slidesPerView: 3, // 2 slides on tablets
-              },
-              480: {
-                slidesPerView: 1, // 1 slide on mobile screens
-              },
+              1400: { slidesPerView: 4 },
+              1024: { slidesPerView: 3 },
+              768: { slidesPerView: 2 },
+              480: { slidesPerView: 1 },
             }}
             className="w-full h-auto"
           >
@@ -100,74 +97,77 @@ const SwiperSectionLeaderhsip = () => {
               <SwiperSlide key={index}>
                 <div className="grid grid-cols-1 md:grid-cols-2 relative">
                   <div className="relative">
-                    <Image
-                      src="/73.png" // Replace with the actual path to the play icon
-                      className="absolute top-2 right-2 h-6 w-6"
-                      width={24}
-                      height={24}
-                      alt="Play Icon"
+                    {/* Video Thumbnail */}
+                    <img
+                      src={course.watchOurCommunitySliderImage?.node?.link || "default.png"}
+                      className="h-[300px] w-[500px] object-cover rounded-md cursor-pointer"
+                      onClick={() => openModal(course.watchOurCommunityVideoLink   || "default.mp4")}
+                      alt="Video Thumbnail"
                     />
-                    <Image
-                      src={course.watchOurCommunitySliderImage?.node?.link || ''}
-                      className="h-[300px] w-[500px] object-cover rounded-md"
-                      width={1000}
-                      height={1000}
-                      alt=""
+                    {/* Play Icon */}
+                    <img
+                      src="/73.png"
+                      className="absolute top-2 right-2 h-10 w-10 cursor-pointer"
+                      onClick={() => openModal(course.watchOurCommunityVideoLink || "default.mp4")}
+                      alt="Play"
                     />
                   </div>
-                  <div
-                    className={`${index % 2 === 0 ? 'bg-[#D9F8DC]' : 'bg-[#DBEBFF]'} grid items-center pl-4 rounded-md`}
-                  >
+                  <div className={`${index % 2 === 0 ? "bg-[#D9F8DC]" : "bg-[#DBEBFF]"} grid items-center pl-4 rounded-md`}>
                     <div>
                       <h2 className="text-[16px] font-bold text-black">{course.watchOurCommunitySliderAuthor}</h2>
                       <p className="text-[16px] font-medium text-black">{course.watchOurCommunitySliderDesignation}</p>
                     </div>
                   </div>
                 </div>
-                {/* <div key={index} className="grid grid-cols-1 md:grid-cols-2">
-                  <Image
-                    src={course.watchOurCommunitySliderImage?.node?.link || ''}
-                    className="h-[300px] w-[500px] object-cover rounded-md"
-                    width={1000}
-                    height={1000}
-                    alt=""
-                  />
-                  <div className="bg-[#D9F8DC] grid items-center pl-4 rounded-md">
-                    <div>
-                      <h2 className="text-[16px] font-bold text-black">{course.watchOurCommunitySliderAuthor}</h2>
-                      <p className="text-[16px] font-medium text-black">{course.watchOurCommunitySliderDesignation}</p>
-                    </div>
-                  </div>
-                </div> */}
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </section>
 
-      {/* Custom CSS for pagination */}
+      {/* Lightbox Video Modal */}
+      <Modal 
+          isOpen={isOpen} 
+          onRequestClose={closeModal} 
+          className="modal" 
+          overlayClassName="overlay"
+          appElement={typeof document !== "undefined" ? document.getElementById("__next")! : undefined}
+        >
+          <div className="relative">
+            <button onClick={closeModal} className="z-99999 absolute top-2 right-2 text-white text-xl">✖</button>
+
+            {parse(videoUrl || '')}
+          </div>
+        </Modal>
+
+
       <style>
         {`
-        .swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: none;
-}
-          .swiper-pagination {
-            bottom: -20px; 
+          .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            padding: 20px;
+            z-index: 1000;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
           }
-
-          .swiper-pagination-bullet {
-            background: #000; 
-            opacity: 0.6;
-          }
-
-          .swiper-pagination-bullet-active {
-            background: #ff5722;
-            opacity: 1;
+          .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
           }
         `}
       </style>
     </>
-  )
-}
+  );
+};
 
-export default SwiperSectionLeaderhsip
+export default SwiperSectionLeadership;

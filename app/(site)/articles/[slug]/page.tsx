@@ -3,6 +3,8 @@ import client from 'apollo-client'
 import Image from 'next/image'
 import BlogCustomSlider from '@/components/BlogPostSlider'
 import Link from 'next/link'
+import Head from '../../head'
+import HeadPost from '../../headPost'
 // Define types for the post data
 
 interface FeaturedImage {
@@ -21,17 +23,24 @@ interface Post {
 // Define the GraphQL query
 const POST_QUERY = gql`
   query ($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      content
-      date
-      title
-      featuredImage {
-        node {
-          link
-        }
+  post(id: $slug, idType: SLUG) {
+    content
+    date
+    title
+    featuredImage {
+      node {
+        link
+      }
+    }
+    seoMetaFields {
+      seo {
+        metaDescription
+        metaKeywords
+        pageTitle
       }
     }
   }
+}
 `
 
 const fetchPostById = async (slug: string) => {
@@ -39,7 +48,7 @@ const fetchPostById = async (slug: string) => {
     query: POST_QUERY,
     variables: { slug },
   })
-  return data.post
+  return data
 }
 
 type Params = Promise<{ slug: string }>
@@ -49,14 +58,16 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
   const { slug } = await params
 
   // Fetch post data server-side
-  const post = await fetchPostById(slug)
-
+  const data = await fetchPostById(slug);
+  
+  const post =data.post;console.log(post);
   if (!post) {
     return <p>Post not found</p>
   }
 
   return (
     <section className="container mx-auto max-w-[1480px]">
+      <HeadPost data={post}  /> 
       <div className="mx-auto px-4 py-10 md:py-20 flex flex-col md:flex-row justify-between items-center border-b">
         {/* Left Section */}
         <div className="md:w-3/4 flex gap-3 md:gap-10 flex-col md:flex-row align-start">

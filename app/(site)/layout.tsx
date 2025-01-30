@@ -7,13 +7,14 @@ import ScrollToTop from '@/components/ScrollToTop'
 import { ThemeProvider } from 'next-themes'
 import { Inter, Anton } from 'next/font/google' // Import both fonts
 import '../globals.css'
+import { GoogleAnalytics } from 'nextjs-google-analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 const anton = Anton({ weight: '400', subsets: ['latin'] }) // Configure Anton with weight
 
 import ToasterContext from '../context/ToastContext'
 import { ApolloProvider } from '@apollo/client'
-import client from 'apollo-client'
+import client from '../../apollo-client'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   // useEffect(() => {
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <GoogleAnalytics strategy="lazyOnload" />
       </head>
       <body className={`overflow-x-hidden dark:bg-black ${inter.className} `}>
         <ApolloProvider client={client}>

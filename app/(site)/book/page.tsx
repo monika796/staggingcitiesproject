@@ -1,26 +1,16 @@
 import Newsletter from '@/components/Newsletter'
-import { Anton } from 'next/font/google'
 import VideoPlayer from '@/components/Bookvideosection'
 import Partner from '@/components/partner'
-import { gql } from '@apollo/client'
-import client from 'apollo-client'
 import Image from 'next/image'
 import Link from 'next/link'
 import MainComponent from '@/components/LightboxPdf'
 import { BOOK_PAGE_QUERY } from '@/queries/queries'
-import { useReveal } from '@/lib/hooks'
 import Head from '../head'
+import { fetchData } from '@/lib/fetchData'
 export const revalidate = 60 // revalidate at most every 5 minutes
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: BOOK_PAGE_QUERY,
-  })
-  return data
-}
-
 export default async function Book() {
-  const data = await fetchData()
+  const data = await fetchData(BOOK_PAGE_QUERY)
   return (
     <main className="container mx-auto max-w-[1480px]">
       <Head data={data} />

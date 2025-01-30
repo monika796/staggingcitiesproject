@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import client from 'apollo-client'
 import Link from 'next/link'
+import { fetchData } from '@/lib/fetchData'
 
 const POSTS_QUERY = gql`
   query MyQuery2 {
@@ -40,14 +41,8 @@ const POSTS_QUERY = gql`
   }
 `
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
 export default async function LastFiveSection() {
-  const data = await fetchData()
+  const data = await fetchData(POSTS_QUERY)
 
   return (
     <section>

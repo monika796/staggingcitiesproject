@@ -97,6 +97,7 @@ export const HOME_PAGE_QUERY = gql`
         buttontxtthird
       }
       homefourtsection {
+        __typename
         mainheadingfourth
         firstimage {
           node {
@@ -1078,4 +1079,233 @@ export const HOME_HERO_NEWS_QUERY = gql`
       }
     }
   }
+`
+
+
+
+export const SHORT_COURSE_PAGE_QUERY = gql`
+query MyQuery2 {
+  page(id: "cG9zdDo4ODk=") {
+  seoMetaFields {
+    seo {
+      metaDescription
+      metaKeywords
+      pageTitle
+    }
+  }
+    shortCourseFields {
+      shortCourseMainHeadingPart1
+      shortCourseMainHeadingPart2
+      shortCoursesFifthSection {
+        shortCoursesFifthSectionReview
+        shortCoursesFifthSectionSubText
+        shortCoursesFifthSectionText
+      }
+      shortCoursesFirstSection {
+        shortCoursesFirstSectionFirstColumnButtonLink
+        shortCoursesFirstSectionFirstColumnButtonText
+        shortCoursesFirstSectionFirstColumnText
+        shortCoursesFirstSectionSecondColumnBottomImage {
+          node {
+            link
+          }
+        }
+        shortCoursesFirstSectionSecondColumnMainImage {
+          node {
+            link
+          }
+        }
+        shortCoursesFirstSectionSecondColumnUpperImage {
+          node {
+            link
+          }
+        }
+        shortCoursesFirstSectionThirdColumnDescription
+        shortCoursesFirstSectionThirdColumnHeading
+        shortCoursesFirstSectionThirdColumnImage {
+          node {
+            link
+          }
+        }
+        shortCoursesMainBackgroundImage {
+          node {
+            link
+          }
+        }
+      }
+      shortCoursesFourthSection {
+        shortCoursesFourthSectionDescription
+        shortCoursesFourthSectionDescriptionPart2
+        shortCoursesFourthSectionHeading
+        shortCoursesFourthSectionImage {
+          node {
+            link
+          }
+        }
+      }
+      shortCoursesSecondSection {
+        shortCoursesSecondSectionFirstColumnText
+        shortCoursesSecondSectionSecondColumnHeading
+        shortCoursesSecondSectionSecondColumnBottomFeilds {
+          shortCoursesSecondSectionSecondColumnBottomFeildsDescription
+          shortCoursesSecondSectionSecondColumnBottomFeildsHeading
+        }
+      }
+      shortCoursesSixthSection {
+        shortCoursesSixthSectionFirstReviewRow {
+          shortCoursesSixthSectionReviewFirstReview
+          shortCoursesSixthSectionReviewFirstUserImage {
+            node {
+              link
+            }
+          }
+          shortCoursesSixthSectionReviewFirstUserName
+          shortCoursesSixthSectionReviewFirstUserStatus
+        }
+        shortCoursesSixthSectionMainDescription
+        shortCoursesSixthSectionMainHeading
+        shortCoursesSixthSectionSecondReviewRow {
+          shortCourseSixthSectionReviewSecondUserName
+          shortCoursesSixthSectionReviewSecondReview
+          shortCoursesSixthSectionReviewSecondUserImage {
+            node {
+              link
+            }
+          }
+          shortCoursesSixthSectionReviewSecondUserStatus
+        }
+      }
+      shortCoursesThirdSection {
+        shortCoursesThirdSectionMainFirstRowDescription
+        shortCoursesThirdSectionMainFirstRowHeading
+        shortCoursesThirdSectionMainSecondRowCards {
+          shortCoursesThirdSectionMainSecondRowCardButtonLink
+          shortCoursesThirdSectionMainSecondRowCardButtonText
+          shortCoursesThirdSectionMainSecondRowCardImage {
+            node {
+              link
+            }
+          }
+          shortCoursesThirdSectionMainSecondRowCardPrice
+          shortCoursesThirdSectionMainSecondRowCardTitle
+        }
+      }
+    }
+  }
+}
+`;
+
+
+export const DONATION_PAGE_QUERY = gql`
+  query MyQuery2 {
+    page(id: "cG9zdDo1MTQ=") {
+    seoMetaFields {
+      seo {
+        metaDescription
+        metaKeywords
+        pageTitle
+      }
+    }
+      donatePageFeilds {
+        donateFifthSectionDescription
+        donateFifthSectionHeading
+        donateFifthSectionLink
+        donateFirstSectionMainDescription
+        donateFirstSectionMainHeading
+        donateSecondSectionLeftButtonLink
+        donateSecondSectionLeftButtonText
+        donateSecondSectionLeftDescription
+        donateSecondSectionLeftHeading
+        donateThirdSectionDescription
+        donateThirdSectionHeading
+        donate_fourth_section_scrolltext
+        donateThirdSectionSubheading
+        donateFifthSectionButtonText
+        donateThirdSectionImage {
+          node {
+            link
+          }
+        }
+        donateSecondSectionRightImage {
+          node {
+            link
+          }
+        }
+        donateSecondSectionLeftFaqs {
+          donateFaqDescription
+          donateFaqTitle
+          fieldGroupName
+        }
+        donateFourthSectionThirdImage {
+          node {
+            link
+          }
+        }
+        donateFourthSectionSecondImage {
+          node {
+            link
+          }
+        }
+        donateFourthSection {
+          node {
+            link
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+
+export const CONTACT_PAGE_POSTS_QUERY = gql`
+query MyQuery2 {
+
+  page(id: "cG9zdDozNjM=") {
+    seoMetaFields {
+    seo {
+      metaDescription
+      metaKeywords
+      pageTitle
+    }
+  }
+  
+    contactpagefeilds {
+    
+      firstMainHeadingPart1
+      firstRightImage {
+        node {
+          link
+        }
+      }
+      firstSubheading
+      first_main_heading_part_2
+      secondContactSectionDescription
+      secondContactSectionFormHeading
+      secondContactSectionImage {
+        node {
+          link
+        }
+      }
+      secondContactSectionHeading
+      thirdSectionCenterFirstButton
+      thirdSectionCenterHeading
+      thirdSectionCenterSecondButton
+      thirdSectionCenterSubHeading
+      thirdSectionCenterUppertext
+      thirdSectionCenterFirstButtonLink
+      thirdSectionCenterSecondButtonLink
+      thirdSectionLeftImage {
+        node {
+          link
+        }
+      }
+      thirdSectionRightImage {
+        node {
+          link
+        }
+      }
+    }
+  }
+}
 `

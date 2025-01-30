@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { gql } from '@apollo/client'
 import client from 'apollo-client'
 import SecondSection from '@/components/VantageForm'
+import { fetchData } from '@/lib/fetchData'
 
 export const revalidate = 60 // revalidate at most every 5 minutes
 
@@ -12,6 +13,14 @@ const POSTS_QUERY = gql`
   query MyQuery2 {
     page(id: "cG9zdDo1Njk=") {
       vantageForm {
+        coursePdf {
+          uploadPdf {
+            node {
+              link
+              mediaItemUrl
+            }
+          }
+        }
         vantageFormMainHeading
         vantageFormSecondSectionSecondColumnDescription
         vantageFormSecondSectionSecondColumnHeading
@@ -62,15 +71,10 @@ const POSTS_QUERY = gql`
     }
   }
 `
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
+
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 const Form = async () => {
-  const data = await fetchData()
+  const data = await fetchData(POSTS_QUERY)
 
   return (
     <div className="container mx-auto max-w-[1480px]">
@@ -125,7 +129,9 @@ const Form = async () => {
           />
         </div>
       </section>
-      <SecondSection />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  </div>
+      <SecondSection pdfData={data.page.vantageForm.coursePdf} />
       <section>
         <div className="flex justify-center mx-auto w-fit mb-3 gap-3  mt-20">
           <div className=" ">

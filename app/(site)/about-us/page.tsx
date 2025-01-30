@@ -10,21 +10,14 @@ import Link from 'next/link'
 import Head from '../head'
 import MainComponent from '@/components/LightboxPdf'
 import { ABOUT_US_PAGE_QUERY } from '@/queries/queries'
+import { fetchData } from '@/lib/fetchData'
 
 export const revalidate = 60 // revalidate at most every 5 minutes
 
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 
-async function fetchData() {
-  const { data } = await client.query({
-    query: ABOUT_US_PAGE_QUERY,
-    fetchPolicy: 'cache-first',
-  })
-  return data
-}
-
 export default async function NewPage() {
-  const data = await fetchData()
+  const data = await fetchData(ABOUT_US_PAGE_QUERY)
   return (
     <main className="md:w-[100%] mx-auto lg:container md:container-fluid">
       <Head data={data} />

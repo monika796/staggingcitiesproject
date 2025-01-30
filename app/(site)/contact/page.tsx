@@ -9,51 +9,14 @@ import { Form, Input, Label, Button } from 'reactstrap'
 import SubscriptionForm from '@/components/ContactSubscribeForm'
 import Link from 'next/link'
 import MainComponent from '@/components/LightboxPdf'
+import Head from '../head'
+import { CONTACT_PAGE_POSTS_QUERY } from '@/queries/queries'
+
 // Define the Anton font
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 export const revalidate = 60 // revalidate at most every 5 minutes
 // GraphQL Query
-const POSTS_QUERY = gql`
-  query MyQuery2 {
-    page(id: "cG9zdDozNjM=") {
-      contactpagefeilds {
-        firstMainHeadingPart1
-        firstRightImage {
-          node {
-            link
-          }
-        }
-        firstSubheading
-        first_main_heading_part_2
-        secondContactSectionDescription
-        secondContactSectionFormHeading
-        secondContactSectionImage {
-          node {
-            link
-          }
-        }
-        secondContactSectionHeading
-        thirdSectionCenterFirstButton
-        thirdSectionCenterHeading
-        thirdSectionCenterSecondButton
-        thirdSectionCenterSubHeading
-        thirdSectionCenterUppertext
-        thirdSectionCenterFirstButtonLink
-        thirdSectionCenterSecondButtonLink
-        thirdSectionLeftImage {
-          node {
-            link
-          }
-        }
-        thirdSectionRightImage {
-          node {
-            link
-          }
-        }
-      }
-    }
-  }
-`
+
 interface ContactPageFields {
   firstMainHeadingPart1: string
   firstRightImage?: { node?: { link?: string } }
@@ -84,11 +47,13 @@ interface ContactProps {
 
 const Contact = async (): Promise<JSX.Element> => {
   const response = await client.query<{ page: Page }>({
-    query: POSTS_QUERY,
+    query: CONTACT_PAGE_POSTS_QUERY,
   })
+  console.log(response);
   const fields = response.data.page.contactpagefeilds
   return (
     <main className="md:w-[80%] mx-auto">
+      <Head data={response.data} />
       <div className="container mx-auto pt-10 md:pt-20 max-w-[1480px]">
         <section className="md:flex">
           <div className="md:w-2/3">

@@ -8,127 +8,20 @@ import client from 'apollo-client'
 import SwiperSectionshortcourses from '@/components/shortcourseproductslider'
 import ReviewFirstSlider from '@/components/shortcoursereviewslider/Firstslider'
 import ReviewSecondSlider from '@/components/shortcoursereviewslider/Secondslider'
+import { fetchData } from '@/lib/fetchData'
+import Head from '../head'
 export const revalidate = 60 // revalidate at most every 5 minutes
+import { SHORT_COURSE_PAGE_QUERY } from '@/queries/queries'
 
-const POSTS_QUERY = gql`
-  query MyQuery2 {
-    page(id: "cG9zdDo4ODk=") {
-      shortCourseFields {
-        shortCourseMainHeadingPart1
-        shortCourseMainHeadingPart2
-        shortCoursesFifthSection {
-          shortCoursesFifthSectionReview
-          shortCoursesFifthSectionSubText
-          shortCoursesFifthSectionText
-        }
-        shortCoursesFirstSection {
-          shortCoursesFirstSectionFirstColumnButtonLink
-          shortCoursesFirstSectionFirstColumnButtonText
-          shortCoursesFirstSectionFirstColumnText
-          shortCoursesFirstSectionSecondColumnBottomImage {
-            node {
-              link
-            }
-          }
-          shortCoursesFirstSectionSecondColumnMainImage {
-            node {
-              link
-            }
-          }
-          shortCoursesFirstSectionSecondColumnUpperImage {
-            node {
-              link
-            }
-          }
-          shortCoursesFirstSectionThirdColumnDescription
-          shortCoursesFirstSectionThirdColumnHeading
-          shortCoursesFirstSectionThirdColumnImage {
-            node {
-              link
-            }
-          }
-          shortCoursesMainBackgroundImage {
-            node {
-              link
-            }
-          }
-        }
-        shortCoursesFourthSection {
-          shortCoursesFourthSectionDescription
-          shortCoursesFourthSectionDescriptionPart2
-          shortCoursesFourthSectionHeading
-          shortCoursesFourthSectionImage {
-            node {
-              link
-            }
-          }
-        }
-        shortCoursesSecondSection {
-          shortCoursesSecondSectionFirstColumnText
-          shortCoursesSecondSectionSecondColumnHeading
-          shortCoursesSecondSectionSecondColumnBottomFeilds {
-            shortCoursesSecondSectionSecondColumnBottomFeildsDescription
-            shortCoursesSecondSectionSecondColumnBottomFeildsHeading
-          }
-        }
-        shortCoursesSixthSection {
-          shortCoursesSixthSectionFirstReviewRow {
-            shortCoursesSixthSectionReviewFirstReview
-            shortCoursesSixthSectionReviewFirstUserImage {
-              node {
-                link
-              }
-            }
-            shortCoursesSixthSectionReviewFirstUserName
-            shortCoursesSixthSectionReviewFirstUserStatus
-          }
-          shortCoursesSixthSectionMainDescription
-          shortCoursesSixthSectionMainHeading
-          shortCoursesSixthSectionSecondReviewRow {
-            shortCourseSixthSectionReviewSecondUserName
-            shortCoursesSixthSectionReviewSecondReview
-            shortCoursesSixthSectionReviewSecondUserImage {
-              node {
-                link
-              }
-            }
-            shortCoursesSixthSectionReviewSecondUserStatus
-          }
-        }
-        shortCoursesThirdSection {
-          shortCoursesThirdSectionMainFirstRowDescription
-          shortCoursesThirdSectionMainFirstRowHeading
-          shortCoursesThirdSectionMainSecondRowCards {
-            shortCoursesThirdSectionMainSecondRowCardButtonLink
-            shortCoursesThirdSectionMainSecondRowCardButtonText
-            shortCoursesThirdSectionMainSecondRowCardImage {
-              node {
-                link
-              }
-            }
-            shortCoursesThirdSectionMainSecondRowCardPrice
-            shortCoursesThirdSectionMainSecondRowCardTitle
-          }
-        }
-      }
-    }
-  }
-`
-
-async function fetchData() {
-  const { data } = await client.query({
-    query: POSTS_QUERY,
-  })
-  return data
-}
 
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 const ShortCoursePage = async () => {
-  const data = await fetchData()
+  const data = await fetchData(SHORT_COURSE_PAGE_QUERY)
 
   const shortcourse = data.page.shortCourseFields
   return (
     <main className="">
+      <Head data={data} />
       <div className="main-heading py-10 container mx-auto max-w-[1480px]">
         <div className="flex items-center justify-between flex-wrap my-8 ">
           <h2 className="m-0 text-[32px] md:text-[64px] text-black font-bold md:leading-[60px] leading-[33px]">
