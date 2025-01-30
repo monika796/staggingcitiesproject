@@ -140,7 +140,13 @@ const SwiperSectionLeadership = () => {
             <button onClick={closeModal} className="z-99999 absolute top-2 right-2 text-white text-xl">✖</button>
 
             {/* {parse(videoUrl || '')} */}
-            <ReactPlayer url={videoUrl} />
+            <ReactPlayer
+        url={videoUrl}
+        playing
+        loop
+        controls
+        muted
+      />
           </div>
         </Modal>
 
