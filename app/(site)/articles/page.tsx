@@ -43,7 +43,7 @@ const BlogPage = async () => {
                   {data.page.blogPageFeilds.blogSecondSection.blogPageRightDescription}
                 </p>
                 <Link
-                  href={getSlugsFromUrl(data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonLink.url)}
+                  href={data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonLink.url}
                   className=" flex  mx-unset md:mx-0 items-center gap-2.5 w-[fit-content] inline-block mt-4 bg-[#A1CF5F] font-bold text-black text-sm py-3 px-6 rounded-lg transition duration-300"
                 >
                   {data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonText}
