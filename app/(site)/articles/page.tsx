@@ -13,6 +13,13 @@ import { fetchData } from '@/lib/fetchData'
 const BlogPage = async () => {
   const postData = await fetchData(ARTICLES_QUERY)
   const data = await fetchData(ARTICLES_PAGE_QUERY)
+  const allPosts = [
+    ...(postData?.featuredPosts?.nodes || []),
+    ...(postData?.otherPosts?.nodes || [])
+  ];
+  
+  // Remove duplicates based on `id`
+  const uniquePosts = Array.from(new Map(allPosts.map(post => [post.id, post])).values());
 
   return (
     <>
@@ -43,7 +50,7 @@ const BlogPage = async () => {
                   {data.page.blogPageFeilds.blogSecondSection.blogPageRightDescription}
                 </p>
                 <Link
-                  href={data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonLink.url}
+                  href={getSlugsFromUrl(data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonLink.url)}
                   className=" flex  mx-unset md:mx-0 items-center gap-2.5 w-[fit-content] inline-block mt-4 bg-[#A1CF5F] font-bold text-black text-sm py-3 px-6 rounded-lg transition duration-300"
                 >
                   {data.page.blogPageFeilds.blogSecondSection.blogPageRightButtonText}
@@ -123,7 +130,8 @@ const BlogPage = async () => {
         {/* //////////////// */}
         <div className="container mx-auto  max-w-[1480px] py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-8 gap-4">
-            {postData.posts.nodes.map((post, index) => {
+          {uniquePosts.length > 0 ? (
+            uniquePosts.map((post, index) => {
               var dat_time = post.date
               const dates = new Date(dat_time)
               var formatDate = dates.toLocaleDateString('en-US', {
@@ -132,7 +140,10 @@ const BlogPage = async () => {
                 day: 'numeric',
               })
 
-              return (
+              // Check if post is "Featured"
+              const isFeatured = post.tags?.nodes?.some(tag => tag.name.toLowerCase() === "featured");
+
+              return (                
                 <BlogCard
                   key={index}
                   index={index}
@@ -142,7 +153,9 @@ const BlogPage = async () => {
                   // content={post.content}
                   linkText="Read More"
                   linkHref={post.slug}
+                  featured={isFeatured}
                 />
+                
               )
               //   return index === 0 || index === 1 ? (
               //     <BlogCard
@@ -165,7 +178,9 @@ const BlogPage = async () => {
               //       linkHref={post.slug}
               //     />
               //   ) : null // For indices not 0, 1, 2, or 3, render nothing or another component
-            })}
+            }) ) : (
+              <p className="text-center col-span-full">No posts found.</p>
+            )}
           </div>
         </div>
         {/* /////////////////////// */}

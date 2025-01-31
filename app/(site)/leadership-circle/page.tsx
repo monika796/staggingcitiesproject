@@ -21,15 +21,15 @@ import parse from 'html-react-parser'
 import MainComponent from '@/components/LightboxPdf'
 import LastFiveSection from '@/components/lastfiveimages'
 import SwiperSectionLeaderhsip from '@/components/leadershipcommunityslider'
-import { LEADERSHIP_PAGE_QUERY } from '@/queries/queries'
+import { LEADERSHIP_PAGE_QUERY, LEADERSHIP_CIRCLE_TESTIMONIALS } from '@/queries/queries'
 import { fetchData } from '@/lib/fetchData'
 import Head from '../head'
-
 
 export const revalidate = 60 // revalidate at most every 5 minutes
 
 const page = async () => {
   const data = await fetchData(LEADERSHIP_PAGE_QUERY)
+  const testimonialData = await fetchData(LEADERSHIP_CIRCLE_TESTIMONIALS)
   return (
     <div className="container mx-auto max-w-[1480px]">
       <Head data={data} />
@@ -163,10 +163,7 @@ const page = async () => {
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
                       .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonText
                   } // Pass dynamic text as prop
-                  pdfUrl={
-                    data.page.leadershipPageFeilds.leadershipSecondSectionFields
-                      .leadershipSecondSectionSecondColumnBox[0].leadershipSecondSectionSecondColumnBoxButtonLink?.node?.link
-                  } // Pass the dynamic PDF URL
+                  pdfUrl="Global LC 2025.pdf" // Pass the dynamic PDF URL
                 />
               </div>
 
@@ -198,10 +195,7 @@ const page = async () => {
                     data.page.leadershipPageFeilds.leadershipSecondSectionFields
                       .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonText
                   } // Pass dynamic text as prop
-                  pdfUrl={
-                    data.page.leadershipPageFeilds.leadershipSecondSectionFields
-                      .leadershipSecondSectionSecondColumnBox[1].leadershipSecondSectionSecondColumnBoxButtonLink?.node?.link
-                  } // Pass the dynamic PDF URL
+                  pdfUrl="Global LC 2025-in-person.pdf" // Pass the dynamic PDF URL
                 />
               </div>
             </div>
@@ -316,7 +310,7 @@ const page = async () => {
           <hr className="border w-[70%]" />
         </div>
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-15 ">
-          <SwiperSectionLeaderhsip />
+          <SwiperSectionLeaderhsip data={testimonialData} />
         </div>
       </section>
       <section>

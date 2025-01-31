@@ -20,6 +20,7 @@ const POSTS_QUERY = gql`
         title
         id
         slug
+        date
       }
     }
     page(id: "cG9zdDoxNg==") {
@@ -41,7 +42,11 @@ const BlogCustomSlider = () => {
     slug: dataposts.slug,
     post_id: dataposts.id,
     imgSrc: dataposts.featuredImage?.node?.link,
-    date: '5 Sep 20241',
+    date: new Date(dataposts.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }),
     title: dataposts.title,
     linkText: 'Learn More',
   }))

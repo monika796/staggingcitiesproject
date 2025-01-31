@@ -27,6 +27,11 @@ const POST_QUERY = gql`
     content
     date
     title
+    tags {
+        nodes {
+          name
+      }
+    }
     featuredImage {
       node {
         link
@@ -65,6 +70,9 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
     return <p>Post not found</p>
   }
 
+    // Check if the "Featured" tag exists
+  const isFeatured = post.tags.nodes.some(tag => tag.name.toLowerCase() === 'featured');
+
   return (
     <section className="container mx-auto max-w-[1480px]">
       <HeadPost data={post}  /> 
@@ -72,9 +80,11 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
         {/* Left Section */}
         <div className="md:w-3/4 flex gap-3 md:gap-10 flex-col md:flex-row align-start">
           {/* Featured Badge */}
+          {isFeatured && (
           <div className="mb-2">
             <span className="inline-block bg-black text-white text-xs uppercase py-1 px-3 rounded-xl">Featured</span>
           </div>
+          )}
           <div>
             <h1
               className="text-lg md:text-[64px] font-bold text-gray-900 leading-tight"

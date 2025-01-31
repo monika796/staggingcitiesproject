@@ -561,11 +561,11 @@ export const LEADERSHIP_PAGE_QUERY = gql`
             }
           }
           leadershipSecondSectionSecondColumnBox {
-            leadershipSecondSectionSecondColumnBoxButtonLink{
-            node {
-              link
+            leadershipSecondSectionSecondColumnBoxButtonLink {
+              node {
+                link
+              }
             }
-          }
             leadershipSecondSectionSecondColumnBoxButtonText
             leadershipSecondSectionSecondColumnBoxDescription
             leadershipSecondSectionSecondColumnBoxHeading
@@ -860,7 +860,7 @@ export const ARTICLES_PAGE_QUERY = gql`
 
 export const ARTICLES_QUERY = gql`
   query Articles {
-    posts(last: 1000) {
+    featuredPosts: posts(where: {  tag: "featured", status: PUBLISH }, last: 1000) {
       nodes {
         date
         featuredImage {
@@ -869,14 +869,35 @@ export const ARTICLES_QUERY = gql`
           }
         }
         title
-        # content(format: RENDERED)
-        # contentTypeName
         id
         slug
+        tags {
+          nodes {
+            name
+          }
+        }
+      }
+    }
+    otherPosts: posts(where: { tagNotIn: ["featured"], status: PUBLISH }, last: 1000) {
+      nodes {
+        date
+        featuredImage {
+          node {
+            link
+          }
+        }
+        title
+        id
+        slug
+        tags {
+          nodes {
+            name
+          }
+        }
       }
     }
   }
-`
+`;
 
 export const VANTAGEPOINT_QUERY = gql`
   query MyQuery2 {
@@ -1085,131 +1106,128 @@ export const HOME_HERO_NEWS_QUERY = gql`
   }
 `
 
-
-
 export const SHORT_COURSE_PAGE_QUERY = gql`
-query MyQuery2 {
-  page(id: "cG9zdDo4ODk=") {
-  seoMetaFields {
-    seo {
-      metaDescription
-      metaKeywords
-      pageTitle
+  query MyQuery2 {
+    page(id: "cG9zdDo4ODk=") {
+      seoMetaFields {
+        seo {
+          metaDescription
+          metaKeywords
+          pageTitle
+        }
+      }
+      shortCourseFields {
+        shortCourseMainHeadingPart1
+        shortCourseMainHeadingPart2
+        shortCoursesFifthSection {
+          shortCoursesFifthSectionReview
+          shortCoursesFifthSectionSubText
+          shortCoursesFifthSectionText
+        }
+        shortCoursesFirstSection {
+          shortCoursesFirstSectionFirstColumnButtonLink
+          shortCoursesFirstSectionFirstColumnButtonText
+          shortCoursesFirstSectionFirstColumnText
+          shortCoursesFirstSectionSecondColumnBottomImage {
+            node {
+              link
+            }
+          }
+          shortCoursesFirstSectionSecondColumnMainImage {
+            node {
+              link
+            }
+          }
+          shortCoursesFirstSectionSecondColumnUpperImage {
+            node {
+              link
+            }
+          }
+          shortCoursesFirstSectionThirdColumnDescription
+          shortCoursesFirstSectionThirdColumnHeading
+          shortCoursesFirstSectionThirdColumnImage {
+            node {
+              link
+            }
+          }
+          shortCoursesMainBackgroundImage {
+            node {
+              link
+            }
+          }
+        }
+        shortCoursesFourthSection {
+          shortCoursesFourthSectionDescription
+          shortCoursesFourthSectionDescriptionPart2
+          shortCoursesFourthSectionHeading
+          shortCoursesFourthSectionImage {
+            node {
+              link
+            }
+          }
+        }
+        shortCoursesSecondSection {
+          shortCoursesSecondSectionFirstColumnText
+          shortCoursesSecondSectionSecondColumnHeading
+          shortCoursesSecondSectionSecondColumnBottomFeilds {
+            shortCoursesSecondSectionSecondColumnBottomFeildsDescription
+            shortCoursesSecondSectionSecondColumnBottomFeildsHeading
+          }
+        }
+        shortCoursesSixthSection {
+          shortCoursesSixthSectionFirstReviewRow {
+            shortCoursesSixthSectionReviewFirstReview
+            shortCoursesSixthSectionReviewFirstUserImage {
+              node {
+                link
+              }
+            }
+            shortCoursesSixthSectionReviewFirstUserName
+            shortCoursesSixthSectionReviewFirstUserStatus
+          }
+          shortCoursesSixthSectionMainDescription
+          shortCoursesSixthSectionMainHeading
+          shortCoursesSixthSectionSecondReviewRow {
+            shortCourseSixthSectionReviewSecondUserName
+            shortCoursesSixthSectionReviewSecondReview
+            shortCoursesSixthSectionReviewSecondUserImage {
+              node {
+                link
+              }
+            }
+            shortCoursesSixthSectionReviewSecondUserStatus
+          }
+        }
+        shortCoursesThirdSection {
+          shortCoursesThirdSectionMainFirstRowDescription
+          shortCoursesThirdSectionMainFirstRowHeading
+          shortCoursesThirdSectionMainSecondRowCards {
+            shortCoursesThirdSectionMainSecondRowCardButtonLink
+            shortCoursesThirdSectionMainSecondRowCardButtonText
+            shortCoursesThirdSectionMainSecondRowCardImage {
+              node {
+                link
+              }
+            }
+            shortCoursesThirdSectionMainSecondRowCardPrice
+            shortCoursesThirdSectionMainSecondRowCardTitle
+          }
+        }
+      }
     }
   }
-    shortCourseFields {
-      shortCourseMainHeadingPart1
-      shortCourseMainHeadingPart2
-      shortCoursesFifthSection {
-        shortCoursesFifthSectionReview
-        shortCoursesFifthSectionSubText
-        shortCoursesFifthSectionText
-      }
-      shortCoursesFirstSection {
-        shortCoursesFirstSectionFirstColumnButtonLink
-        shortCoursesFirstSectionFirstColumnButtonText
-        shortCoursesFirstSectionFirstColumnText
-        shortCoursesFirstSectionSecondColumnBottomImage {
-          node {
-            link
-          }
-        }
-        shortCoursesFirstSectionSecondColumnMainImage {
-          node {
-            link
-          }
-        }
-        shortCoursesFirstSectionSecondColumnUpperImage {
-          node {
-            link
-          }
-        }
-        shortCoursesFirstSectionThirdColumnDescription
-        shortCoursesFirstSectionThirdColumnHeading
-        shortCoursesFirstSectionThirdColumnImage {
-          node {
-            link
-          }
-        }
-        shortCoursesMainBackgroundImage {
-          node {
-            link
-          }
-        }
-      }
-      shortCoursesFourthSection {
-        shortCoursesFourthSectionDescription
-        shortCoursesFourthSectionDescriptionPart2
-        shortCoursesFourthSectionHeading
-        shortCoursesFourthSectionImage {
-          node {
-            link
-          }
-        }
-      }
-      shortCoursesSecondSection {
-        shortCoursesSecondSectionFirstColumnText
-        shortCoursesSecondSectionSecondColumnHeading
-        shortCoursesSecondSectionSecondColumnBottomFeilds {
-          shortCoursesSecondSectionSecondColumnBottomFeildsDescription
-          shortCoursesSecondSectionSecondColumnBottomFeildsHeading
-        }
-      }
-      shortCoursesSixthSection {
-        shortCoursesSixthSectionFirstReviewRow {
-          shortCoursesSixthSectionReviewFirstReview
-          shortCoursesSixthSectionReviewFirstUserImage {
-            node {
-              link
-            }
-          }
-          shortCoursesSixthSectionReviewFirstUserName
-          shortCoursesSixthSectionReviewFirstUserStatus
-        }
-        shortCoursesSixthSectionMainDescription
-        shortCoursesSixthSectionMainHeading
-        shortCoursesSixthSectionSecondReviewRow {
-          shortCourseSixthSectionReviewSecondUserName
-          shortCoursesSixthSectionReviewSecondReview
-          shortCoursesSixthSectionReviewSecondUserImage {
-            node {
-              link
-            }
-          }
-          shortCoursesSixthSectionReviewSecondUserStatus
-        }
-      }
-      shortCoursesThirdSection {
-        shortCoursesThirdSectionMainFirstRowDescription
-        shortCoursesThirdSectionMainFirstRowHeading
-        shortCoursesThirdSectionMainSecondRowCards {
-          shortCoursesThirdSectionMainSecondRowCardButtonLink
-          shortCoursesThirdSectionMainSecondRowCardButtonText
-          shortCoursesThirdSectionMainSecondRowCardImage {
-            node {
-              link
-            }
-          }
-          shortCoursesThirdSectionMainSecondRowCardPrice
-          shortCoursesThirdSectionMainSecondRowCardTitle
-        }
-      }
-    }
-  }
-}
-`;
-
+`
 
 export const DONATION_PAGE_QUERY = gql`
   query MyQuery2 {
     page(id: "cG9zdDo1MTQ=") {
-    seoMetaFields {
-      seo {
-        metaDescription
-        metaKeywords
-        pageTitle
+      seoMetaFields {
+        seo {
+          metaDescription
+          metaKeywords
+          pageTitle
+        }
       }
-    }
       donatePageFeilds {
         donateFifthSectionDescription
         donateFifthSectionHeading
@@ -1258,58 +1276,75 @@ export const DONATION_PAGE_QUERY = gql`
       }
     }
   }
-`;
-
-
+`
 
 export const CONTACT_PAGE_POSTS_QUERY = gql`
-query MyQuery2 {
+  query MyQuery2 {
+    page(id: "cG9zdDozNjM=") {
+      seoMetaFields {
+        seo {
+          metaDescription
+          metaKeywords
+          pageTitle
+        }
+      }
 
-  page(id: "cG9zdDozNjM=") {
-    seoMetaFields {
-    seo {
-      metaDescription
-      metaKeywords
-      pageTitle
-    }
-  }
-  
-    contactpagefeilds {
-    
-      firstMainHeadingPart1
-      firstRightImage {
-        node {
-          link
+      contactpagefeilds {
+        firstMainHeadingPart1
+        firstRightImage {
+          node {
+            link
+          }
         }
-      }
-      firstSubheading
-      first_main_heading_part_2
-      secondContactSectionDescription
-      secondContactSectionFormHeading
-      secondContactSectionImage {
-        node {
-          link
+        firstSubheading
+        first_main_heading_part_2
+        secondContactSectionDescription
+        secondContactSectionFormHeading
+        secondContactSectionImage {
+          node {
+            link
+          }
         }
-      }
-      secondContactSectionHeading
-      thirdSectionCenterFirstButton
-      thirdSectionCenterHeading
-      thirdSectionCenterSecondButton
-      thirdSectionCenterSubHeading
-      thirdSectionCenterUppertext
-      thirdSectionCenterFirstButtonLink
-      thirdSectionCenterSecondButtonLink
-      thirdSectionLeftImage {
-        node {
-          link
+        secondContactSectionHeading
+        thirdSectionCenterFirstButton
+        thirdSectionCenterHeading
+        thirdSectionCenterSecondButton
+        thirdSectionCenterSubHeading
+        thirdSectionCenterUppertext
+        thirdSectionCenterFirstButtonLink
+        thirdSectionCenterSecondButtonLink
+        thirdSectionLeftImage {
+          node {
+            link
+          }
         }
-      }
-      thirdSectionRightImage {
-        node {
-          link
+        thirdSectionRightImage {
+          node {
+            link
+          }
         }
       }
     }
   }
-}
+`
+
+export const LEADERSHIP_CIRCLE_TESTIMONIALS = gql`
+  query MyQuery2 {
+    page(id: "cG9zdDo2MDg=") {
+      leadershipPageFeilds {
+        leadershipWatchOurCommunitySection {
+          watchOurCommunitySlider {
+            watchOurCommunitySliderAuthor
+            watchOurCommunitySliderDesignation
+            watchOurCommunityVideoLink
+            watchOurCommunitySliderImage {
+              node {
+                link
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `
