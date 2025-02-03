@@ -34,6 +34,7 @@ export async function GET() {
         `;
       })
       .join('');
+      
 
     // Create the full sitemap XML structure
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
