@@ -15,16 +15,25 @@ export async function GET() {
 
     // Remove duplicates based on `id`
     const uniquePosts = Array.from(new Map(allPosts.map(post => [post.id, post])).values());
+    const staticPages = [
+      '/',
+      '/about-us',
+      '/leadership-circle',
+      '/vantage-point',
+      '/articles',
+      '/contact',
+      '/book',
+      '/donation',
+      '/articles',
+      '/short-course',
+      '/vantage-point/form'
+    ];
+
 
     // Generate the URL set from the posts
     const urlSet = uniquePosts
       .map(post => {
         const date = new Date(post.date);
-        const formatDate = date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        });
 
         return `
           <url>
@@ -34,12 +43,21 @@ export async function GET() {
         `;
       })
       .join('');
+      const urlSet_pages = staticPages.map(page => {
+        console
+        return `
+          <url>
+            <loc>${process.env.NEXT_PUBLIC_SITEMAP_URL}${page}</loc>
+          </url>
+        `;
+      })   .join('');
       
 
     // Create the full sitemap XML structure
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${urlSet}
+        ${urlSet_pages}
       </urlset>`;
 
     // Return the XML response
