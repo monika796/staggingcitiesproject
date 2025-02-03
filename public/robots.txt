@@ -1,3 +1,4 @@
 User-agent: *
-Disallow: /api/
-Sitemap: http://localhost:3000/api/sitemap
+Disallow: /api/        # Keep this if you want to block other API routes, but allow /api/sitemap
+Allow: /api/sitemap 
+Sitemap: https://staggingcitiesprojectglobal.vercel.app/api/sitemap
