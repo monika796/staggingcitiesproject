@@ -1,11 +1,12 @@
 'use client'
 import { useState } from 'react'
 import axios from 'axios'
-import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const SubscriptionForm = () => {
   const [submitted, setSubmitted] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     input_1: '', // Name
@@ -16,8 +17,6 @@ const SubscriptionForm = () => {
     subscribe: false, // Checkbox
   })
 
-  const { executeRecaptcha } = useGoogleReCaptcha()
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target
     setFormData((prevData) => ({
@@ -26,18 +25,21 @@ const SubscriptionForm = () => {
     }))
   }
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token)
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    if (!executeRecaptcha) {
-      setMessage('reCAPTCHA not available.')
+    if (!recaptchaToken) {
+      setMessage('Please complete the reCAPTCHA.')
       return
     }
 
     try {
-      const token = await executeRecaptcha('submit')
       const response = await axios.post('/api/submit-form', {
         ...formData,
-        recaptcha_token: token,
+        recaptcha_token: recaptchaToken,
       })
 
       if (response.data.success) {
@@ -80,6 +82,12 @@ const SubscriptionForm = () => {
             <input type="checkbox" name="subscribe" checked={formData.subscribe} onChange={handleChange} /> I want to subscribe to emails
           </label>
 
+          {/* Google reCAPTCHA v2 Checkbox */}
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+            onChange={handleRecaptchaChange}
+          />
+
           <button type="submit" className="bg-green-500 text-white p-2 rounded">Submit</button>
         </form>
       )}
@@ -88,10 +96,4 @@ const SubscriptionForm = () => {
   )
 }
 
-const SubscriptionFormWrapper = () => (
-  <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}>
-    <SubscriptionForm />
-  </GoogleReCaptchaProvider>
-)
-
-export default SubscriptionFormWrapper
+export default SubscriptionForm
