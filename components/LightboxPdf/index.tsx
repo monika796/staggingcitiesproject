@@ -63,7 +63,7 @@ const MainComponent = ({ buttonText, pdfUrl, extraclass }) => {
                 width="100%"
                 height="100%"
                 title="PDF Viewer"
-                className="border-0 rounded-lg aspect-video min-h-[75vh]"
+                className="border-0 rounded-lg aspect-video min-h-[100vh]"
               ></iframe>
             </div>
           </div>
