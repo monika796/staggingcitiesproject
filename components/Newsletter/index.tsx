@@ -43,7 +43,7 @@ export default function Newsletter() {
 
     try {
       const response = await axios.post(
-        'https://digitractive.com/cityprojectglobal/wp-json/gf/v2/forms/1/submissions',
+        'https://backend.citiesprojectglobal.com/wp-json/gf/v2/forms/1/submissions',
         formData,
         {
           headers: {

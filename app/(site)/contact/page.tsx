@@ -1,5 +1,4 @@
 import { Anton } from 'next/font/google'
-
 import Partner from '@/components/partner'
 import Newsletter from '@/components/Newsletter'
 import { gql } from '@apollo/client'

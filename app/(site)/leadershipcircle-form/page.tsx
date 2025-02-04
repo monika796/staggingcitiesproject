@@ -105,7 +105,7 @@ const MainForm = () => {
 
     try {
       const response = await axios.post(
-        'https://digitractive.com/cityprojectglobal/wp-json/gf/v2/forms/2/submissions',
+        'https://backend.citiesprojectglobal.com/wp-json/gf/v2/forms/2/submissions',
         data,
         {
           headers: {
