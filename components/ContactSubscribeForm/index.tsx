@@ -1,26 +1,23 @@
 'use client'
-import client from '@/apollo-client'
 import { useState } from 'react'
 import axios from 'axios'
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
 const SubscriptionForm = () => {
-  // State to handle form submission
   const [submitted, setSubmitted] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
 
-  // State to store form data
   const [formData, setFormData] = useState({
-    input_2: '',
-    input_3: '',
-    input_1: '',
-    input_4: '',
-    input_6: '',
-    input_5: '',
-    input_7: '',
-    subscribe: false, // Checkbox state
+    input_1: '', // Name
+    input_3: '', // Email
+    input_5: '', // Company
+    input_6: '', // Position
+    input_7: '', // Message
+    subscribe: false, // Checkbox
   })
 
-  // Handle form field changes
+  const { executeRecaptcha } = useGoogleReCaptcha()
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target
     setFormData((prevData) => ({
@@ -31,96 +28,70 @@ const SubscriptionForm = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    if (!executeRecaptcha) {
+      setMessage('reCAPTCHA not available.')
+      return
+    }
 
-    // Here, you could call an API or send the form data as needed.
-    // For now, we'll simulate the form submission.
     try {
-      const response = await axios.post(
-        'https://backend.citiesprojectglobal.com/wp-json/gf/v2/forms/3/submissions',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Basic ${btoa(
-              'ck_3b900686e6b6f05a64b49ff09163b1ae35017710:cs_a366847ab722d30837123aac4605cc07c1eeaac1',
-            )}`, 
-          },
-        },
-      )
+      const token = await executeRecaptcha('submit')
+      const response = await axios.post('/api/submit-form', {
+        ...formData,
+        recaptcha_token: token,
+      })
 
-      const responseData = response.data
-
-      if (!responseData.is_valid) {
-        // If the form submission is not valid, show the validation messages
-        const validationMessages = Object.values(responseData.validation_messages).join(', ')
-        setMessage(validationMessages || 'There was an error submitting the form.')
-      } else {
-        // If the submission is valid, show a success message
+      if (response.data.success) {
         setMessage('Form submitted successfully!')
+        setSubmitted(true)
+      } else {
+        setMessage(response.data.message || 'Submission error.')
       }
-
-      setSubmitted(true) // Set the form as submitted
     } catch (error) {
-      setMessage('There was an error submitting the form.')
+      setMessage('Submission failed.')
       console.error(error)
     }
   }
 
   return (
-    <div className="">
+    <div>
       {submitted ? (
         <div className="text-center py-10">
           <h3 className="font-bold text-[24px] text-black">Thanks for subscribing!</h3>
           <p className="text-black text-[16px]">We appreciate your interest and will keep you updated.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="grid gap-[1px]">
-          <label className='text-black font-bold' >Name</label>
-          <input
-            type="text"
-            name="input_1"
-            placeholder="Enter Name"
-            value={formData.input_1}
-            onChange={handleChange}
-            className="bg-transparent border border-[#3d3c3c26] p-[10px]"
-            required
-          />
-          <label className='text-black font-bold'>Email</label>
-          <input
-            type="email"
-            name="input_3"
-            placeholder="Enter Email"
-            value={formData.input_3}
-            onChange={handleChange}
-            className="bg-transparent border border-[#3d3c3c26] p-[10px]"
-            required
-          />
-          <label className='text-black font-bold'>Company</label>
-          <input type='text' name='input_5' placeholder='Enter Company' onChange={handleChange} value={formData.input_5} className='bg-transparent border border-[#3d3c3c26] p-[10px]' required />
-          
-          <label className='text-black font-bold'>Position</label>
-          <input type='text' name='input_6' placeholder='Enter Position'  onChange={handleChange} value={formData.input_6} className='bg-transparent border border-[#3d3c3c26] p-[10px]' required />
-          
-          <label className='text-black font-bold'>Enter  Message</label>
-          <input type='text'  className='bg-transparent border border-[#3d3c3c26] p-[10px]' name='input_7' onChange={handleChange} value={formData.input_7} />
-         
-          <label className="text-[20] text-black pt-8  font-normal text-left decoration-slice">
-            Please Confirm*
+        <form onSubmit={handleSubmit} className="grid gap-2">
+          <label className="text-black font-bold">Name</label>
+          <input type="text" name="input_1" placeholder="Enter Name" value={formData.input_1} onChange={handleChange} className="border p-2" required />
+
+          <label className="text-black font-bold">Email</label>
+          <input type="email" name="input_3" placeholder="Enter Email" value={formData.input_3} onChange={handleChange} className="border p-2" required />
+
+          <label className="text-black font-bold">Company</label>
+          <input type="text" name="input_5" placeholder="Enter Company" value={formData.input_5} onChange={handleChange} className="border p-2" required />
+
+          <label className="text-black font-bold">Position</label>
+          <input type="text" name="input_6" placeholder="Enter Position" value={formData.input_6} onChange={handleChange} className="border p-2" required />
+
+          <label className="text-black font-bold">Message</label>
+          <input type="text" name="input_7" placeholder="Enter Message" value={formData.input_7} onChange={handleChange} className="border p-2" />
+
+          <label className="text-black font-bold">
+            <input type="checkbox" name="subscribe" checked={formData.subscribe} onChange={handleChange} /> I want to subscribe to emails
           </label>
-          <p className="text-[15px] p-2 font-normal text-left decoration-slice">
-            <input type="checkbox" name="subscribe" checked={formData.subscribe} onChange={handleChange} />I want to
-            subscribe to all CPG emails
-          </p>
-          <button
-            type="submit"
-            className="mx-auto md:mx-0 font-bold md:w-[31%] w-[28%] bg-[#A1CF5F] md:p-[8px] p-[10px] text-black rounded-[7px] text-[15px]"
-          >
-            Submit
-          </button>
+
+          <button type="submit" className="bg-green-500 text-white p-2 rounded">Submit</button>
         </form>
       )}
+      {message && <p className="text-red-500">{message}</p>}
     </div>
   )
 }
 
-export default SubscriptionForm
+const SubscriptionFormWrapper = () => (
+  <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}>
+    <SubscriptionForm />
+  </GoogleReCaptchaProvider>
+)
+
+export default SubscriptionFormWrapper
