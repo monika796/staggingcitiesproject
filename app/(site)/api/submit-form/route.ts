@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Form validation failed.', errors: response.data.validation_messages }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true, message: 'Form submitted successfully!' }, { status: 200 })
+    return NextResponse.json({ success: true, message: '' }, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ success: false, message: 'Server error. Please try again.' }, { status: 500 })

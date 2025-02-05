@@ -17,11 +17,12 @@ const SubscriptionForm = () => {
     subscribe: false, // Checkbox
   })
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.target
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, type, value } = event.target
+  
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? (event.target as HTMLInputElement).checked : value,
     }))
   }
 
@@ -76,7 +77,13 @@ const SubscriptionForm = () => {
           <input type="text" name="input_6" placeholder="Enter Position" value={formData.input_6} onChange={handleChange} className="border p-2" required />
 
           <label className="text-black font-bold">Message</label>
-          <input type="text" name="input_7" placeholder="Enter Message" value={formData.input_7} onChange={handleChange} className="border p-2" />
+          <textarea
+            name="input_7"
+            placeholder="Enter Message"
+            value={formData.input_7}
+            onChange={handleChange}
+            className="border p-2"
+          ></textarea>
 
           <label className="text-black font-bold">
             <input type="checkbox" name="subscribe" checked={formData.subscribe} onChange={handleChange} /> I want to subscribe to emails
