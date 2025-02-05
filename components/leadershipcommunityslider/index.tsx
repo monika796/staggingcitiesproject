@@ -76,7 +76,7 @@ const SwiperSectionLeadership = ({ data }: { data: any }) => {
           >
             {posts.map((course, index) => (
               <SwiperSlide key={index}>
-                <div className="grid grid-cols-1 md:grid-cols-2 relative">
+                <div className="grid grid-cols-2 relative">
                   <div className="relative">
                     {/* Video Thumbnail */}
                     <Image
