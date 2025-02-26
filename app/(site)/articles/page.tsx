@@ -24,13 +24,13 @@ const BlogPage = async () => {
 
   // Remove duplicates based on `id`
   const uniquePosts = Array.from(new Map(allPosts.map(post => [post.id, post])).values());
-
+console.log(lang);
   return (
     <>
       <main className="md:w-[90%] mx-auto">
         <Head data={data} />
         <h1 className="md:py-[42px] md:max-w-[700px] mt-4 py-[30px] md:text-[64px] text-[45px] font-bold leading-normal text-center text-black mx-20 md:mx-auto">
-       { await getTranslation(data.page.blogPageFeilds.blogPageMainHeading, lang)}  {}
+       {  getTranslation(data.page.blogPageFeilds.blogPageMainHeading, lang)} 
         </h1>
         {uniquePosts.length > 0 ? (
           <>
@@ -75,7 +75,7 @@ const BlogPage = async () => {
             <div className="flex flex-col lg:flex-row items-center justify-between">
               <div className="text-left">
                 <h2 className="text-[48px] md:w-[60%] font-bold text-gray-900 leading-[58px]">
-                  { await getTranslation( data.page.blogPageFeilds.blogLeftThirdSectionHeading ,lang )}
+                  {data.page.blogPageFeilds.blogLeftThirdSectionHeading}
                 </h2>
               </div>
               {/* Right Section: Play Button and Caption */}
@@ -94,11 +94,11 @@ const BlogPage = async () => {
                 {/* Caption */}
                 <div className="ml-4">
                   <h3 className="text-[16px] font-bold text-black  leading-[23px]">
-                    {await getTranslation(data.page.blogPageFeilds.blogRightThirdSectionHeading,lang )}
+                    {data.page.blogPageFeilds.blogRightThirdSectionHeading}
                   </h3>
                   <hr className="my-4 border" />
                   <p className="text-[16px] max-w-[301px] text-black">
-                    {await getTranslation(data.page.blogPageFeilds.blogRightThirdSectionDescription,lang )}
+                    {data.page.blogPageFeilds.blogRightThirdSectionDescription}
                   </p>
                 </div>
               </div>
@@ -117,16 +117,16 @@ const BlogPage = async () => {
                     month: 'short',
                     day: 'numeric',
                   });
-                    const titleee= post.title ;
+
                   const isFeatured = post.tags?.nodes?.some(tag => tag.name.toLowerCase() === "featured");
                   return (
                     <BlogCard
-                      key={ post.id  }
+                      key={post.id}
                       index={index}
                       image={post.featuredImage?.node?.link}
                       date={formatDate}
-                      title={  titleee }
-                      linkText={  getTranslation("Read More",lang) }
+                      title={post.title}
+                      linkText="Read More"
                       linkHref={post.slug}
                       featured={isFeatured}
                     />
