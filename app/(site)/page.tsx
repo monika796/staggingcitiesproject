@@ -21,13 +21,6 @@ import HomeAboutTheBook from '@/components/HomeAboutthebook'
 // import NewBannerSlider from '@/components/HeroBanner' // Import client component
 import VideoPopup from '@/components/SecondHomeVideoButton'
 import Head from './head'
-
-import { getTranslation } from "@/app/(site)/api/translate";
-import { cookies } from "next/headers";
-
-
-
-
 import {
   HOME_PAGE_QUERY,
   STORIES_QUERY,
@@ -81,8 +74,6 @@ const ThreeStatement = ({ subtitle, heading, paragraph, image, imageAlignment })
 //   slidesToScroll: 1,
 // }
 export default async function Home() {
-  const cookieStore =await cookies();
-const lang = cookieStore.get("lang")?.value || "en";
   const data = await fetchData(HOME_PAGE_QUERY)
   const stories = await fetchData(STORIES_QUERY)
   const testimonials = await fetchData(TESTIMONIAL_QUERY)
@@ -112,7 +103,7 @@ const lang = cookieStore.get("lang")?.value || "en";
                 {data.page.bannerHome.subtitleupper && (
                   <>
                     <span className="uppercase	inline-block text-[10px] md:text-[14px] bg-[#fff] text-black leading-none text-center  w-[auto] mb-[20px]  font-bold	py-1 px-2">
-                      { await getTranslation(data.page.bannerHome.subtitleupper ,lang)}
+                      {data.page.bannerHome.subtitleupper}
                     </span>
                     <br />
                   </>
@@ -120,20 +111,20 @@ const lang = cookieStore.get("lang")?.value || "en";
                 <strong
                   className={`${anton.className} block uppercase md:text-[126px]  leading-[50px] text-[47px] font-light xl:leading-[130px]  md:leading-none`}
                 >
-                  {await getTranslation(data.page.bannerHome.textBanner ,lang)}
+                  {data.page.bannerHome.textBanner}
                   <br className="hidden md:block" />
-                  {await getTranslation(data.page.bannerHome.textBanner2 ,lang)}
+                  {data.page.bannerHome.textBanner2}
                   <br className="hidden md:block" />
-                  {await getTranslation(data.page.bannerHome.textBanner3 ,lang)}
+                  {data.page.bannerHome.textBanner3}
                 </strong>
                 <p className="mt-2 md:mb-10 mb-10 md:w-[50%] font-light xl:leading-6 md:leading-none">
-                  {await getTranslation(data.page.bannerHome.subtitle_bottom ,lang)}{' '}
+                  {data.page.bannerHome.subtitle_bottom}{' '}
                 </p>
                 <Link
                   href={data.page.bannerHome.buttonLinkBannerHome}
                   className=" flex w-fit  items-center gap-2.5 inline-block md:mt-4 bg-[#A1CF5F] font-bold text-black  text-[13px] md:text-sm py-1 md:py-3 px-6 rounded-lg transition duration-300"
                 >
-                  {await getTranslation(data.page.bannerHome.buttonText ,lang)}
+                  {data.page.bannerHome.buttonText}
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="arrow">
                     <g
                       fill="none"
@@ -171,7 +162,7 @@ const lang = cookieStore.get("lang")?.value || "en";
           <div className="flex  md:p-[0px] md:pb-[280px] md:pt-[25px] lg:p-[20px] lg:pb-[280px] 2xl:p-[105px] 2xl:pb-[280px]  flex-col md:flex-row h-full">
             <div className=" w-full md:w-1/2 p-4 md:p-2 flex flex-col justify-center">
               <h2 className="font-bold text-gray-800 text-3xl md:text-[56px] leading-tight mb-4">
-              {await getTranslation(data.page.bannerHomesecond.heading_second_section ,lang)}
+                {data.page.bannerHomesecond.heading_second_section}
               </h2>
               <p
                 className="max-w-[400px] md:text-[15px] text-black	leading-loose mb-6 mt-4"
@@ -180,7 +171,7 @@ const lang = cookieStore.get("lang")?.value || "en";
               <div className="flex-col md:flex-row md:mx-0 hidden md:block ">
                 <VideoPopup
                   videoUrl={data.page.bannerHomesecond.buttonLinkSecondSection}
-                  buttonText={await getTranslation(data.page.bannerHomesecond.buttonText,lang)}
+                  buttonText={data.page.bannerHomesecond.buttonText}
                 />
               </div>
             </div>
@@ -192,12 +183,12 @@ const lang = cookieStore.get("lang")?.value || "en";
                       {' '}
                       <p className="font-bold text-black  mb-3 text-[20px] xl:w-[157px]">
                         {' '}
-                        { await getTranslation(data.page.bannerHomesecond.rightsmallsectiontext,lang)}
+                        {data.page.bannerHomesecond.rightsmallsectiontext}
                       </p>
                       <Link href={data.page.bannerHomesecond.rightsmallsectionlink}>
                         <p className="text-black text-[15px] underline">
                           {' '}
-                          {await getTranslation(data.page.bannerHomesecond.rightsmallsectionlinktext,lang)}
+                          {data.page.bannerHomesecond.rightsmallsectionlinktext}
                         </p>
                       </Link>
                     </div>
@@ -245,19 +236,19 @@ const lang = cookieStore.get("lang")?.value || "en";
             </div>
             <div className="md:w-6/12 md:pl-[30px] py-4 gap-0  text-left md:text-left px-4 md:px-6">
               <h1 className="text-[32px]  text-black leading-none mt-3 ">
-                {await getTranslation(data.page.sectionHomethird.firstcolumnheading,lang)}
+                {data.page.sectionHomethird.firstcolumnheading}
               </h1>
-              <h5 className="text-[16px] text-black font-bold mt-2">{await getTranslation(data.page.sectionHomethird.subtitletextfirst,lang)}</h5>
+              <h5 className="text-[16px] text-black font-bold mt-2">{data.page.sectionHomethird.subtitletextfirst}</h5>
               <hr className="w-[38px] border-black mt-2" />
-              <p className="text-[14px] text-black leading-normal my-5">{await getTranslation(data.page.sectionHomethird.buttontxtfirst,lang)}</p>
+              <p className="text-[14px] text-black leading-normal my-5">{data.page.sectionHomethird.buttontxtfirst}</p>
               <p className="text-[14px] text-black leading-normal mb-3">
-                <b> {await getTranslation("Date:",lang)}</b> November 15, 2024 <br />
-                <b>{await getTranslation("Time:",lang)}</b> 10:00 AM - 12:00 PM
+                <b> Date:</b> November 15, 2024 <br />
+                <b>Time:</b> 10:00 AM - 12:00 PM
               </p>
               <div className="flex max-w-fit md:mt-7 mx-unset md:mx-0 items-center gap-2.5 w-[fit-content] mt-3 bg-[#A1CF5F] font-bold text-black text-sm py-3 px-6 rounded-lg">
                 <MainComponent
                   extraclass={']'}
-                  buttonText={await getTranslation("Sign up",lang)}
+                  buttonText="Sign up"
                   pdfUrl="/api/proxy?url=https://backend.citiesprojectglobal.com/event-signup/"
                 />
 
@@ -278,17 +269,17 @@ const lang = cookieStore.get("lang")?.value || "en";
           <div className="md:w-full lg:w-6/12 flex flex-col md:flex-row ">
             <div className="md:w-6/12  md:text-left text-left py-4 px-7 bg-[#224334]">
               <h3 className="text-[32px] text-white  leading-none mt-3">
-                {await getTranslation(data.page.sectionHomethird.secondcolumnheading,lang)} 
+                {data.page.sectionHomethird.secondcolumnheading}
               </h3>
               <h5 className="text-[16px] text-white font-bold  mt-2">
-                {await getTranslation(data.page.sectionHomethird.subtitletextsecond,lang)}
+                {data.page.sectionHomethird.subtitletextsecond}
               </h5>
               <hr className="w-[38px] md:mx-0 mt-3" />
               <div className="flex flex-row  md:gap-[10px] gap-[28px] items-end justify-between md:items-start mt-10 md:mt-22  md:flex-wrap-reverse">
                 <Link href={data.page.sectionHomethird.buttonLink2ThirdSection}>
                   {' '}
                   <button className="w-[150px] flex items-center gap-2.5 justify-center   px-1 md:px-3 float-left bg-[#A1CF5F] mt-[10px] h-[40px] rounded-[5px] font-bold text-black text-[14px] mb-2">
-                    {await getTranslation(data.page.sectionHomethird.buttontxtsecond,lang)}
+                    {data.page.sectionHomethird.buttontxtsecond}
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M2.40728 11.206L9.8764 3.73689L9.8764 10.2632C9.8764 10.7847 10.3044 11.2127 10.8259 11.2127C10.9498 11.2128 11.0724 11.1885 11.1869 11.1412C11.3013 11.0938 11.4053 11.0244 11.4929 10.9368C11.5805 10.8493 11.6499 10.7453 11.6972 10.6308C11.7446 10.5164 11.7689 10.3937 11.7688 10.2699L11.7688 1.4567C11.7689 1.33285 11.7446 1.21019 11.6972 1.09574C11.6499 0.981295 11.5805 0.877308 11.4929 0.789732C11.4053 0.702157 11.3013 0.632713 11.1869 0.585376C11.0724 0.538039 10.9498 0.513738 10.8259 0.513866L2.01276 0.513865C1.88894 0.513865 1.76634 0.538253 1.65195 0.585635C1.53756 0.633017 1.43362 0.702465 1.34607 0.790016C1.25852 0.877566 1.18907 0.981504 1.14169 1.09589C1.09431 1.21028 1.06992 1.33288 1.06992 1.4567C1.06992 1.58051 1.09431 1.70312 1.14169 1.81751C1.18907 1.9319 1.25852 2.03584 1.34607 2.12339C1.43362 2.21094 1.53756 2.28038 1.65195 2.32777C1.76634 2.37515 1.88894 2.39954 2.01276 2.39954L8.53905 2.39954L1.06992 9.86866C0.702152 10.2364 0.702151 10.8382 1.06992 11.206C1.4377 11.5738 2.03951 11.5738 2.40728 11.206Z"
@@ -308,15 +299,15 @@ const lang = cookieStore.get("lang")?.value || "en";
             </div>
             <div className="md:w-6/12 py-4 px-7  md:text-left  bg-[#a1cf5f]">
               <h3 className="text-[32px] text-black   leading-none mt-3">
-                {await getTranslation(data.page.sectionHomethird.thirdcolumnheading,lang)}
+                {data.page.sectionHomethird.thirdcolumnheading}
               </h3>
-              <h5 className="text-[16px] text-black font-bold  mt-2">{await getTranslation(data.page.sectionHomethird.subtitletextthird,lang)}</h5>
+              <h5 className="text-[16px] text-black font-bold  mt-2">{data.page.sectionHomethird.subtitletextthird}</h5>
               <hr className="w-[38px] md:mx-0 mt-3 border-black" />
               <div className="flex flex-row  md:gap-[10px] gap-[28px] items-end  justify-between md:items-start mt-10 md:mt-22 md:flex-wrap-reverse">
                 <Link href={data.page.sectionHomethird.buttonLink3ThirdSection}>
                   {' '}
                   <button className="w-[150px] flex items-center gap-2.5 justify-center  px-1  md:px-3 float-left bg-[#FFFFFF] mt-[10px] h-[40px] rounded-[5px] font-bold text-black text-[14px] mb-2">
-                    {await getTranslation( data.page.sectionHomethird.buttontxtthird ,lang)}{' '}
+                    {data.page.sectionHomethird.buttontxtthird}{' '}
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M2.40728 11.206L9.8764 3.73689L9.8764 10.2632C9.8764 10.7847 10.3044 11.2127 10.8259 11.2127C10.9498 11.2128 11.0724 11.1885 11.1869 11.1412C11.3013 11.0938 11.4053 11.0244 11.4929 10.9368C11.5805 10.8493 11.6499 10.7453 11.6972 10.6308C11.7446 10.5164 11.7689 10.3937 11.7688 10.2699L11.7688 1.4567C11.7689 1.33285 11.7446 1.21019 11.6972 1.09574C11.6499 0.981295 11.5805 0.877308 11.4929 0.789732C11.4053 0.702157 11.3013 0.632713 11.1869 0.585376C11.0724 0.538039 10.9498 0.513738 10.8259 0.513866L2.01276 0.513865C1.88894 0.513865 1.76634 0.538253 1.65195 0.585635C1.53756 0.633017 1.43362 0.702465 1.34607 0.790016C1.25852 0.877566 1.18907 0.981504 1.14169 1.09589C1.09431 1.21028 1.06992 1.33288 1.06992 1.4567C1.06992 1.58051 1.09431 1.70312 1.14169 1.81751C1.18907 1.9319 1.25852 2.03584 1.34607 2.12339C1.43362 2.21094 1.53756 2.28038 1.65195 2.32777C1.76634 2.37515 1.88894 2.39954 2.01276 2.39954L8.53905 2.39954L1.06992 9.86866C0.702152 10.2364 0.702151 10.8382 1.06992 11.206C1.4377 11.5738 2.03951 11.5738 2.40728 11.206Z"
@@ -349,9 +340,9 @@ const lang = cookieStore.get("lang")?.value || "en";
           <div className="md:pl-20 flex">
             <ThreeStatement
               imageAlignment="left"
-              subtitle={await getTranslation(data.page.homefourtsection.firstsubtitle1,lang)}
-              heading={await getTranslation(data.page.homefourtsection.firstheading,lang)}
-              paragraph={await getTranslation(data.page.homefourtsection.firstparagraph,lang)}
+              subtitle={data.page.homefourtsection.firstsubtitle1}
+              heading={data.page.homefourtsection.firstheading}
+              paragraph={data.page.homefourtsection.firstparagraph}
               image={data.page.homefourtsection.firstimage?.node?.link}
             />
           </div>
@@ -359,9 +350,9 @@ const lang = cookieStore.get("lang")?.value || "en";
           <div className="flex justify-center md:justify-end md:pr-20 my-10">
             <ThreeStatement
               imageAlignment="right"
-              subtitle={await getTranslation(data.page.homefourtsection.secondsubtitle,lang)}
-              heading={await getTranslation(data.page.homefourtsection.secondheading,lang)}
-              paragraph={await getTranslation(data.page.homefourtsection.secondparagraph,lang)}
+              subtitle={data.page.homefourtsection.secondsubtitle}
+              heading={data.page.homefourtsection.secondheading}
+              paragraph={data.page.homefourtsection.secondparagraph}
               image={data.page.homefourtsection.secondimage?.node?.link}
             />
           </div>
@@ -369,9 +360,9 @@ const lang = cookieStore.get("lang")?.value || "en";
           <div className="md:pl-20 flex items-center ">
             <ThreeStatement
               imageAlignment="left"
-              subtitle={await getTranslation(data.page.homefourtsection.thirdsubtitle,lang)}
-              heading={await getTranslation(data.page.homefourtsection.thirdheading,lang)}
-              paragraph={await getTranslation(data.page.homefourtsection.thirdparagraph,lang)}
+              subtitle={data.page.homefourtsection.thirdsubtitle}
+              heading={data.page.homefourtsection.thirdheading}
+              paragraph={data.page.homefourtsection.thirdparagraph}
               image={data.page.homefourtsection.thirdimage?.node?.link}
             />
           </div>
