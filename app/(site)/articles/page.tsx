@@ -6,7 +6,7 @@ import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
-import { getTranslation } from "@/app/(site)/api/translation/route";
+import { getTranslation } from "@/lib/translate";
 import { cookies } from "next/headers";
 
 const BlogPage = async () => {

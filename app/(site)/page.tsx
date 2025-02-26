@@ -22,7 +22,7 @@ import HomeAboutTheBook from '@/components/HomeAboutthebook'
 import VideoPopup from '@/components/SecondHomeVideoButton'
 import Head from './head'
 
-import { getTranslation } from "@/app/(site)/api/translation/route";
+import { getTranslation } from "@/lib/translate"
 import { cookies } from "next/headers";
 
 
