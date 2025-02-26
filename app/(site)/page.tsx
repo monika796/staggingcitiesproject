@@ -89,7 +89,7 @@ const lang = cookieStore.get("lang")?.value || "en";
   const videos = await fetchData(HOME_VIDEO_QUERY)
   const heroNews = await fetchData(HOME_HERO_NEWS_QUERY)
 
-  console.log('heroNews::::', await getTranslation(data,lang))
+  console.log('heroNews::::', data)
 
   return (
     <main className="mt-[-96px]">
