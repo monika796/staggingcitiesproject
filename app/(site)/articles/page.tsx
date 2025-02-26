@@ -6,13 +6,17 @@ import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
+import { getTranslation } from "@/app/(site)/api/translate";
+import { cookies } from "next/headers";
 
 const BlogPage = async () => {
   const [postData, data] = await Promise.all([
     fetchData(ARTICLES_QUERY),
     fetchData(ARTICLES_PAGE_QUERY)
   ]);
-  
+  const cookieStore =await cookies();
+  const lang = cookieStore.get("lang")?.value || "en";
+
   const allPosts = [
     ...(postData?.featuredPosts?.nodes || []),
     ...(postData?.otherPosts?.nodes || [])
@@ -26,7 +30,7 @@ const BlogPage = async () => {
       <main className="md:w-[90%] mx-auto">
         <Head data={data} />
         <h1 className="md:py-[42px] md:max-w-[700px] mt-4 py-[30px] md:text-[64px] text-[45px] font-bold leading-normal text-center text-black mx-20 md:mx-auto">
-          {data.page.blogPageFeilds.blogPageMainHeading}
+       { await getTranslation(data.page.blogPageFeilds.blogPageMainHeading, lang)}  {}
         </h1>
         {uniquePosts.length > 0 ? (
           <>
@@ -71,7 +75,7 @@ const BlogPage = async () => {
             <div className="flex flex-col lg:flex-row items-center justify-between">
               <div className="text-left">
                 <h2 className="text-[48px] md:w-[60%] font-bold text-gray-900 leading-[58px]">
-                  {data.page.blogPageFeilds.blogLeftThirdSectionHeading}
+                  { await getTranslation( data.page.blogPageFeilds.blogLeftThirdSectionHeading ,lang )}
                 </h2>
               </div>
               {/* Right Section: Play Button and Caption */}
@@ -90,11 +94,11 @@ const BlogPage = async () => {
                 {/* Caption */}
                 <div className="ml-4">
                   <h3 className="text-[16px] font-bold text-black  leading-[23px]">
-                    {data.page.blogPageFeilds.blogRightThirdSectionHeading}
+                    {await getTranslation(data.page.blogPageFeilds.blogRightThirdSectionHeading,lang )}
                   </h3>
                   <hr className="my-4 border" />
                   <p className="text-[16px] max-w-[301px] text-black">
-                    {data.page.blogPageFeilds.blogRightThirdSectionDescription}
+                    {await getTranslation(data.page.blogPageFeilds.blogRightThirdSectionDescription,lang )}
                   </p>
                 </div>
               </div>
@@ -113,16 +117,16 @@ const BlogPage = async () => {
                     month: 'short',
                     day: 'numeric',
                   });
-
+                    const titleee= post.title ;
                   const isFeatured = post.tags?.nodes?.some(tag => tag.name.toLowerCase() === "featured");
                   return (
                     <BlogCard
-                      key={post.id}
+                      key={ post.id  }
                       index={index}
                       image={post.featuredImage?.node?.link}
                       date={formatDate}
-                      title={post.title}
-                      linkText="Read More"
+                      title={  titleee }
+                      linkText={  getTranslation("Read More",lang) }
                       linkHref={post.slug}
                       featured={isFeatured}
                     />

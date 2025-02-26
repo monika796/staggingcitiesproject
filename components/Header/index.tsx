@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
+import LanguageSwitcher from '../translationcomponent'
 import ThemeToggler from './ThemeToggler'
 import menuData from './menuData'
 
@@ -248,7 +248,7 @@ const Header = () => {
           </nav>
         </div>
         <div className="social-media hidden md:flex md:gap-[10px] md:order-2 w-full max-w-[350px] space-x-3 md:space-x-0 rtl:space-x-reverse justify-end">
-          <div className="px-4 lg:flex md:hidden md:items-center">
+         <LanguageSwitcher/> <div className="px-4 lg:flex md:hidden md:items-center">
             <div className="social-icons hidden md:flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse ">
               <Link
                 target="_blank"

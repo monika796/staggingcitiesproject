@@ -30,6 +30,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "framer-motion": "^10.12.16",
+    "google-translate-api-x": "^10.7.2",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.2",
     "html-react-parser": "^5.2.1",
