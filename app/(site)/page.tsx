@@ -149,7 +149,7 @@ const lang = cookieStore.get("lang")?.value || "en";
                 </Link>
               </div>
               <div className="hidden md:block absolute right-[17px] md:right-[55px]  md:max-w-[427px]   bottom-[8px]  w-[40%] swiper-slider">
-                <SwiperSection data={heroNews} />
+                <SwiperSection lang={lang} data={heroNews} />
               </div>
             </div>
           </div>
