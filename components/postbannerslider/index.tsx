@@ -8,7 +8,11 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const SwiperSection = ({ data }: { data: any }) => {
+import { getTranslation } from "@/lib/translate"
+
+
+const SwiperSection = ({ data , lang }: {lang:string ,data: any }) => {
+
   const posts = data?.posts?.nodes?.slice(0, 4) || []
   console.log(posts);
   return (
@@ -51,13 +55,14 @@ const SwiperSection = ({ data }: { data: any }) => {
                     <div className="grid p-2">
                       <div>
                         <p className="inline px-2 py-1 text-[11px] bg-[#000000] uppercase h-auto text-white font-bold text-center rounded-[20px] ">
-                          News
+                 { getTranslation('News' ,lang)}
+
                         </p>
                       </div>
                       <p className="text-[16px] h-[84px] font-bold text-black pl-1 leading-normal">
-                        {post.title.replace(/<[^>]*>/g, '') || 'Untitled'}
+                      { getTranslation(post.title.replace(/<[^>]*>/g, '') || 'Untitled' ,lang) }
                       </p>
-                      <p className="text-[13px] underline uppercase text-black">Read more</p>
+                      <p className="text-[13px] underline uppercase text-black">  { getTranslation('Read more' ,lang)}</p>
                     </div>
                   </Link>
                 </div>

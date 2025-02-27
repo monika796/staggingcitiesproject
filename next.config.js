@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'backend.citiesprojectglobal.com'], // Trusted domains for images
+    domains: ['localhost','digitractive.com','cityglobalprojects.insiderwebsolutions.com', 'backend.citiesprojectglobal.com'], // Trusted domains for images
   },
   env: {
     NEXT_STRIPE_PUBLISH_KEY: process.env.NEXT_STRIPE_PUBLISH_KEY,

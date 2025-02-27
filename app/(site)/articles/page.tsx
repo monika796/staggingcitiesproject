@@ -6,21 +6,29 @@ import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
+import { getTranslation } from "@/lib/translate";
+import { cookies } from "next/headers";
 
 const BlogPage = async () => {
-  const [postData, data] = await Promise.all([fetchData(ARTICLES_QUERY), fetchData(ARTICLES_PAGE_QUERY)])
-
-  const allPosts = [...(postData?.featuredPosts?.nodes || []), ...(postData?.otherPosts?.nodes || [])]
+  const [postData, data] = await Promise.all([
+    fetchData(ARTICLES_QUERY),
+    fetchData(ARTICLES_PAGE_QUERY)
+  ]);
+  
+  const allPosts = [
+    ...(postData?.featuredPosts?.nodes || []),
+    ...(postData?.otherPosts?.nodes || [])
+  ];
 
   // Remove duplicates based on `id`
-  const uniquePosts = Array.from(new Map(allPosts.map((post) => [post.id, post])).values())
+  const uniquePosts = Array.from(new Map(allPosts.map(post => [post.id, post])).values());
 
   return (
     <>
       <main className="md:w-[90%] mx-auto">
         <Head data={data} />
         <h1 className="md:py-[42px] md:max-w-[700px] mt-4 py-[30px] md:text-[64px] text-[45px] font-bold leading-normal text-center text-black mx-20 md:mx-auto">
-          {data.page.blogPageFeilds.blogPageMainHeading}
+    {data.page.blogPageFeilds.blogPageMainHeading} 
         </h1>
         {uniquePosts.length > 0 ? (
           <>
