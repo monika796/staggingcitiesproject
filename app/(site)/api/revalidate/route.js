@@ -4,7 +4,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const secret = searchParams.get('secret')
   const url = searchParams.get('url')
-
+console.log(url);
   if (secret !== process.env.MY_SECRET_TOKEN) {
     return new Response(JSON.stringify({ message: 'Invalid token' }), { status: 401 })
   }

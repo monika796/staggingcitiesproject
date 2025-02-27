@@ -8,18 +8,12 @@ import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
 
 const BlogPage = async () => {
-  const [postData, data] = await Promise.all([
-    fetchData(ARTICLES_QUERY),
-    fetchData(ARTICLES_PAGE_QUERY)
-  ]);
-  
-  const allPosts = [
-    ...(postData?.featuredPosts?.nodes || []),
-    ...(postData?.otherPosts?.nodes || [])
-  ];
+  const [postData, data] = await Promise.all([fetchData(ARTICLES_QUERY), fetchData(ARTICLES_PAGE_QUERY)])
+
+  const allPosts = [...(postData?.featuredPosts?.nodes || []), ...(postData?.otherPosts?.nodes || [])]
 
   // Remove duplicates based on `id`
-  const uniquePosts = Array.from(new Map(allPosts.map(post => [post.id, post])).values());
+  const uniquePosts = Array.from(new Map(allPosts.map((post) => [post.id, post])).values())
 
   return (
     <>
@@ -33,18 +27,22 @@ const BlogPage = async () => {
             {/* First Post Section */}
             <section className="container mx-auto max-w-[1480px] bg-[#F8F8F8] border rounded-lg mt-10">
               <div className="flex flex-col lg:flex-row overflow-hidden">
-                <Image
-                  src={uniquePosts[0]?.featuredImage?.node?.link || '/No_Image.jpg'}
-                  alt="Group of people"
-                  className="w-full h-[100vh] object-cover"
-                  layout="responsive"
-                  width={800}
-                  height={700}
-                />
+                <div>
+                  <Image
+                    src={uniquePosts[0]?.featuredImage?.node?.link || '/No_Image.jpg'}
+                    alt="Group of people"
+                    className="w-full object-cover"
+                    // layout="responsive"
+                    width={800}
+                    height={700}
+                  />
+                </div>
                 <div className="p-12 flex flex-col justify-end lg:w-[60%] relative">
                   <div className="mb-4 max-w-[543px]">
                     <span className="inline-block bg-black text-white text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wider mb-4">
-                      {uniquePosts[0]?.tags?.nodes?.some(tag => tag.name.toLowerCase() === "featured") ? 'Featured' : '' }
+                      {uniquePosts[0]?.tags?.nodes?.some((tag) => tag.name.toLowerCase() === 'featured')
+                        ? 'Featured'
+                        : ''}
                     </span>
                     <h2 className="text-[36px] font-light text-gray-800 leading-[43px] mt-3 mb-9">
                       {uniquePosts[0]?.title}
@@ -65,56 +63,56 @@ const BlogPage = async () => {
               </div>
             </section>
 
-          {/* Second Post Section */}
-          <section className="mt-10 mb-5">
-          <div className="container mx-auto max-w-[1480px]">
-            <div className="flex flex-col lg:flex-row items-center justify-between">
-              <div className="text-left">
-                <h2 className="text-[48px] md:w-[60%] font-bold text-gray-900 leading-[58px]">
-                  {data.page.blogPageFeilds.blogLeftThirdSectionHeading}
-                </h2>
-              </div>
-              {/* Right Section: Play Button and Caption */}
-              <div className="flex items-center mt-6 lg:mt-0 lg:ml-6 hidden">
-                {/* Play Button */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  fill="#A1CF5F"
-                  className="bi bi-play-circle-fill me-10"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
-                </svg>
-                {/* Caption */}
-                <div className="ml-4">
-                  <h3 className="text-[16px] font-bold text-black  leading-[23px]">
-                    {data.page.blogPageFeilds.blogRightThirdSectionHeading}
-                  </h3>
-                  <hr className="my-4 border" />
-                  <p className="text-[16px] max-w-[301px] text-black">
-                    {data.page.blogPageFeilds.blogRightThirdSectionDescription}
-                  </p>
+            {/* Second Post Section */}
+            <section className="mt-10 mb-5">
+              <div className="container mx-auto max-w-[1480px]">
+                <div className="flex flex-col lg:flex-row items-center justify-between">
+                  <div className="text-left">
+                    <h2 className="text-[48px] md:w-[60%] font-bold text-gray-900 leading-[58px]">
+                      {data.page.blogPageFeilds.blogLeftThirdSectionHeading}
+                    </h2>
+                  </div>
+                  {/* Right Section: Play Button and Caption */}
+                  <div className="flex items-center mt-6 lg:mt-0 lg:ml-6 hidden">
+                    {/* Play Button */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      fill="#A1CF5F"
+                      className="bi bi-play-circle-fill me-10"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                    </svg>
+                    {/* Caption */}
+                    <div className="ml-4">
+                      <h3 className="text-[16px] font-bold text-black  leading-[23px]">
+                        {data.page.blogPageFeilds.blogRightThirdSectionHeading}
+                      </h3>
+                      <hr className="my-4 border" />
+                      <p className="text-[16px] max-w-[301px] text-black">
+                        {data.page.blogPageFeilds.blogRightThirdSectionDescription}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>    
+            </section>
 
             {/* Other Posts Grid */}
             <div className="container mx-auto max-w-[1480px] py-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-8 gap-4"> 
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-8 gap-4">
                 {uniquePosts.slice(1).map((post, index) => {
-                  const dat_time = post.date;
-                  const dates = new Date(dat_time);
+                  const dat_time = post.date
+                  const dates = new Date(dat_time)
                   const formatDate = dates.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
-                  });
+                  })
 
-                  const isFeatured = post.tags?.nodes?.some(tag => tag.name.toLowerCase() === "featured");
+                  const isFeatured = post.tags?.nodes?.some((tag) => tag.name.toLowerCase() === 'featured')
                   return (
                     <BlogCard
                       key={post.id}
@@ -126,7 +124,7 @@ const BlogPage = async () => {
                       linkHref={post.slug}
                       featured={isFeatured}
                     />
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -137,7 +135,7 @@ const BlogPage = async () => {
         <Newsletter />
       </main>
     </>
-  );
-};
+  )
+}
 
-export default BlogPage;
+export default BlogPage

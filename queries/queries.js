@@ -4,6 +4,7 @@ import { SEO_FRAGMENT } from './fragments'
 export const HOME_PAGE_QUERY = gql`
   query {
     page(id: "cG9zdDoxNg==") {
+      databaseId
       id
       seoMetaFields {
         ...SeoMetaFields
@@ -719,6 +720,7 @@ export const STORIES_QUERY = gql`
       }
     }
     page(id: "cG9zdDoxNg==") {
+      databaseId
       homefourtsection {
         postsliderheading
       }
@@ -743,6 +745,7 @@ export const TESTIMONIAL_QUERY = gql`
 export const HOME_VIDEO_QUERY = gql`
   {
     page(id: "cG9zdDoxNg==") {
+      databaseId
       homevideobanner {
         maintitle
         videosubtitle
@@ -860,7 +863,7 @@ export const ARTICLES_PAGE_QUERY = gql`
 
 export const ARTICLES_QUERY = gql`
   query Articles {
-    featuredPosts: posts(where: {  tag: "featured", status: PUBLISH }, last: 1000) {
+    featuredPosts: posts(where: { tag: "featured", status: PUBLISH }, last: 1) {
       nodes {
         date
         featuredImage {
@@ -878,7 +881,10 @@ export const ARTICLES_QUERY = gql`
         }
       }
     }
-    otherPosts: posts(where: { tagNotIn: ["featured"], status: PUBLISH }, last: 1000) {
+    otherPosts: posts(
+      where: { tagNotIn: ["featured"], status: PUBLISH, orderby: { field: DATE, order: DESC } }
+      last: 1000
+    ) {
       nodes {
         date
         featuredImage {
@@ -897,7 +903,17 @@ export const ARTICLES_QUERY = gql`
       }
     }
   }
-`;
+`
+
+export const ALL_ARTICLES_QUERY = gql`
+  query AllArticles {
+    posts(where: { status: PUBLISH }, last: 100) {
+      nodes {
+        slug
+      }
+    }
+  }
+`
 
 export const VANTAGEPOINT_QUERY = gql`
   query MyQuery2 {
@@ -1087,7 +1103,7 @@ export const VANTAGEPOINT_QUERY = gql`
   }
   ${SEO_FRAGMENT}
 `
-
+ 
 export const HOME_HERO_NEWS_QUERY = gql`
   query {
     posts(where: { tag: "featured" }) {
@@ -1165,7 +1181,7 @@ export const SHORT_COURSE_PAGE_QUERY = gql`
               link
             }
           }
-        }
+        } 
         shortCoursesSecondSection {
           shortCoursesSecondSectionFirstColumnText
           shortCoursesSecondSectionSecondColumnHeading
@@ -1343,6 +1359,34 @@ export const LEADERSHIP_CIRCLE_TESTIMONIALS = gql`
               }
             }
           }
+        }
+      }
+    }
+  }
+`
+
+export const POST_QUERY = gql`
+  query ($slug: ID!) {
+    post(id: $slug, idType: SLUG) {
+      databaseId
+      content
+      date
+      title
+      tags {
+        nodes {
+          name
+        }
+      }
+      featuredImage {
+        node {
+          link
+        }
+      }
+      seoMetaFields {
+        seo {
+          metaDescription
+          metaKeywords
+          pageTitle
         }
       }
     }

@@ -1,12 +1,9 @@
-import { gql } from '@apollo/client'
-import client from 'apollo-client'
 import Image from 'next/image'
 import BlogCustomSlider from '@/components/BlogPostSlider'
 import Link from 'next/link'
-import Head from '../../head'
-import HeadPost from '../../headPost'
-// Define types for the post data
-
+import Head from '@/app/(site)/head'
+import { fetchData } from '@/lib/fetchData'
+import { ALL_ARTICLES_QUERY, POST_QUERY } from '@/queries/queries'
 interface FeaturedImage {
   node: {
     link: string
@@ -20,42 +17,6 @@ interface Post {
   featuredImage: FeaturedImage
 }
 
-// Define the GraphQL query
-const POST_QUERY = gql`
-  query ($slug: ID!) {
-  post(id: $slug, idType: SLUG) {
-    content
-    date
-    title
-    tags {
-        nodes {
-          name
-      }
-    }
-    featuredImage {
-      node {
-        link
-      }
-    }
-    seoMetaFields {
-      seo {
-        metaDescription
-        metaKeywords
-        pageTitle
-      }
-    }
-  }
-}
-`
-
-const fetchPostById = async (slug: string) => {
-  const { data } = await client.query({
-    query: POST_QUERY,
-    variables: { slug },
-  })
-  return data
-}
-
 type Params = Promise<{ slug: string }>
 
 const SingleBlogPage = async ({ params }: { params: Params }) => {
@@ -63,27 +24,27 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
   const { slug } = await params
 
   // Fetch post data server-side
-  const data = await fetchPostById(slug);
-  
-  const post =data.post;console.log(post);
+  const data = await fetchData(POST_QUERY, { slug })
+
+  const post = data.post
   if (!post) {
     return <p>Post not found</p>
   }
 
-    // Check if the "Featured" tag exists
-  const isFeatured = post.tags.nodes.some(tag => tag.name.toLowerCase() === 'featured');
+  // Check if the "Featured" tag exists
+  const isFeatured = post.tags.nodes.some((tag) => tag.name.toLowerCase() === 'featured')
 
   return (
     <section className="container mx-auto max-w-[1480px]">
-      <HeadPost data={post}  /> 
+      <Head data={post} />
       <div className="mx-auto px-4 py-10 md:py-20 flex flex-col md:flex-row justify-between items-center border-b">
         {/* Left Section */}
         <div className="md:w-3/4 flex gap-3 md:gap-10 flex-col md:flex-row align-start">
           {/* Featured Badge */}
           {isFeatured && (
-          <div className="mb-2">
-            <span className="inline-block bg-black text-white text-xs uppercase py-1 px-3 rounded-xl">Featured</span>
-          </div>
+            <div className="mb-2">
+              <span className="inline-block bg-black text-white text-xs uppercase py-1 px-3 rounded-xl">Featured</span>
+            </div>
           )}
           <div>
             <h1
@@ -167,3 +128,8 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
 }
 
 export default SingleBlogPage
+
+export async function generateStaticParams() {
+  const postData = await fetchData(ALL_ARTICLES_QUERY)
+  return postData.posts.nodes.map((post) => ({ slug: post.slug }))
+}

@@ -132,6 +132,11 @@ pre {
 } */
 
 @media screen and (max-width: 767px) {
+  div#google_translate_element {
+    position: absolute !important;
+    top: 0 !important;
+    right: 14% !important;
+}
   .sticky {
     background: #ffffffab;
     margin: 0;
@@ -316,4 +321,42 @@ h2.wp-block-heading {
 }
 .gallery-icon img {
   @apply w-full h-auto scale-125;
+}
+div#google_translate_element span ,#google_translate_element2 span {
+  display: none  !important;
+}
+
+iframe.skiptranslate{
+display: none  !important;
+}
+select.goog-te-combo {
+  font-size: 12px;
+  width: 100%;
+  font-weight: 700;
+}
+
+div#goog-gt-tt {
+  display: none !important;
+}
+select.goog-te-combo option[value='en'] ,
+select.goog-te-combo option[value='fr'],
+select.goog-te-combo option[value='es'],
+select.goog-te-combo option[value='ru'] {
+  display: block;
+}
+select.goog-te-combo option {
+  display: none;
+}
+select.goog-te-combo {
+  padding: 9px;
+  font-family: 'Inter', 'Inter Fallback' !important;
+  border: 3px solid #a1cf5f;
+  border-radius: 5px;
+}
+div#\:0\.targetLanguage {
+  visibility: visible;
+  margin-bottom: -31px;
+}
+.skiptranslate.goog-te-gadget {
+  visibility: hidden;
 }

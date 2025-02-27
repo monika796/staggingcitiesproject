@@ -59,7 +59,7 @@ export default function CheckoutForm() {
         </span>
       </button></div>
       {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {message && <div id="payment-message" class="absolute -bottom-20">{message}</div>}
     </form>
   );
 }

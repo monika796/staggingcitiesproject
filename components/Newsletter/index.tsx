@@ -21,10 +21,10 @@ const POSTS_QUERY = gql`
 
 export default function Newsletter() {
   const { loading, error, data } = useQuery(POSTS_QUERY)
-  const [formData, setFormData] = useState({ input_2: '', input_3: '' })
+  const [formData, setFormData] = useState({ input_3: '', input_8: '' ,input_4: 'Newsletter Form' })
   const [message, setMessage] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
-
+  const [Submittingg, setSubmittingg] = useState(false)
   // Handler to manage form input changes
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -34,9 +34,9 @@ export default function Newsletter() {
   // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault() // Prevent the default form submission behavior
-
+    setSubmittingg(true);
     // Basic validation to ensure fields are not empty
-    if (!formData.input_2 || !formData.input_3) {
+    if (!formData.input_3 || !formData.input_8) {
       setMessage('Name and email are required.')
       return
     }
@@ -56,7 +56,6 @@ export default function Newsletter() {
       )
 
       const responseData = response.data
-
       if (!responseData.is_valid) {
         // If the form submission is not valid, show the validation messages
         const validationMessages = Object.values(responseData.validation_messages).join(', ')
@@ -116,9 +115,9 @@ export default function Newsletter() {
             <form onSubmit={handleSubmit} className="cst_form grid gap-[1px]">
               <input
                 type="text"
-                name="input_3"
+                name="input_8"
                 placeholder="Name"
-                value={formData.input_3}
+                value={formData.input_8}
                 onChange={handleChange}
                 className="bg-transparent border border-[#f6f6f626] p-[10px]"
                 required
@@ -126,9 +125,9 @@ export default function Newsletter() {
               <br />
               <input
                 type="email"
-                name="input_2"
+                name="input_3"
                 placeholder="Email"
-                value={formData.input_2}
+                value={formData.input_3}
                 onChange={handleChange}
                 className="bg-transparent border border-[#f6f6f626] p-[10px]"
                 required
@@ -141,9 +140,9 @@ export default function Newsletter() {
               </p>
               <button
                 type="submit"
-                className="mx-auto mt-4 font-bold md:mx-0 md:w-[18%] max-w-[106.57px] bg-[#A1CF5F] md:p-[8px] p-[10px] text-black rounded-[7px] text-[16px]"
-              >
-                Submit
+                className={`${Submittingg ? 'bg-gray-500' : 'bg-green-500'} mx-auto mt-4 font-bold md:mx-0 md:w-max  max-w-[106.57px] bg-[#A1CF5F] md:p-[8px] p-[10px] text-black rounded-[7px] text-[16px] `}
+                disabled={Submittingg}>
+                {Submittingg ? 'Submitting...' : 'Submit'}
               </button>
             </form>
           ) : (

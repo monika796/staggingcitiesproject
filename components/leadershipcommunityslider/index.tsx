@@ -64,7 +64,6 @@ const SwiperSectionLeadership = ({ data }: { data: any }) => {
             modules={[Navigation, Pagination, Autoplay]}
             autoplay={{ delay: 8000, disableOnInteraction: true }}
             loop={true}
-           
             spaceBetween={30}
             breakpoints={{
               1400: { slidesPerView: 4 },
