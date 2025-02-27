@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import LanguageSwitcher from '../translationcomponent'
+
 import ThemeToggler from './ThemeToggler'
 import menuData from './menuData'
 import Script from "next/script";
@@ -265,7 +265,20 @@ const Header = () => {
           alignItems: 'center', }}></div>
 
         <div className="social-media hidden md:flex md:gap-[10px] md:order-2 w-full max-w-[350px] space-x-3 md:space-x-0 rtl:space-x-reverse justify-end">
-          <div className="px-4 lg:flex md:hidden md:items-center">
+        <Script
+     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></Script>
+
+    {/* Google Translate CSS */}
+    <link
+     rel="stylesheet"
+     type="text/css"
+     href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.26tY-h6gH9w.L.W.O/am=CAM/d=0/rs=AN8SPfpIXxhebB2A47D9J-MACsXmFF6Vew/m=el_main_css"
+    />
+       
+      
+
+        <div className="px-4 lg:flex md:hidden md:items-center">
             <div className="social-icons hidden md:flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse ">
               <Link
                 target="_blank"
