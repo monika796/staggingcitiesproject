@@ -342,7 +342,7 @@ select.goog-te-combo option[value='en'] ,
 select.goog-te-combo option[value='fr'],
 select.goog-te-combo option[value='es'],
 select.goog-te-combo option[value='ru'] {
-  display: block;
+  display: block;font-size: 16px;
 }
 select.goog-te-combo option {
   display: none;
@@ -359,4 +359,9 @@ div#\:0\.targetLanguage {
 }
 .skiptranslate.goog-te-gadget {
   visibility: hidden;
+}
+.goog-te-gadget .goog-te-combo {
+  color: black;
+    background: #a1cf5f;
+
 }

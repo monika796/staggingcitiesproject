@@ -1,21 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ["localhost", "backend.citiesprojectglobal.com"], // Trusted domains for images
-  },
-  env: {
-    NEXT_STRIPE_PUBLISH_KEY: process.env.NEXT_STRIPE_PUBLISH_KEY,
-    NEXT_BACKEND_STRIPE_URL: process.env.NEXT_BACKEND_STRIPE_URL,
-    NEXT_STRIPE_DONATION_RETURN_URL: process.env.NEXT_STRIPE_DONATION_RETURN_URL,
-    NEXT_STRIPE_VANTAGE_RETURN_URL: process.env.NEXT_STRIPE_VANTAGE_RETURN_URL,
-    NEXT_BACKEND_PDF_URL: process.env.NEXT_BACKEND_PDF_URL,
-  },
   async redirects() {
     return [
       { source: "/2021/07/19/you-are-called-to-be-an-apprentice-of-jesus-what-does-that-really-look-like/", destination: "/", permanent: true },
       { source: "/about/", destination: "/", permanent: true },
-      { source: "/author/jonichiang/", destination: "/", permanent: true },
+      { source: "/author/jonichiang/", destination: "/about-us", permanent: true },
       { source: "/2021/08/03/what-if-we-aim-to-bless-people-instead-of-convert-them/", destination: "/", permanent: true },
       { source: "/2021/06/15/what-does-it-mean-to-be-righteous-and-why-does-it-matter/", destination: "/", permanent: true },
       { source: "/2021/11/19/healing-the-trauma-of-homelessness-through-affordable-housing/", destination: "/", permanent: true },
@@ -47,6 +36,18 @@ const nextConfig = {
       { source: "/product-category/online-offerings/", destination: "/", permanent: true },
     ];
   },
+  reactStrictMode: false,
+  images: {
+    domains: ["localhost", "backend.citiesprojectglobal.com",'cityglobalprojects.insiderwebsolutions.com'], // Trusted domains for images
+  },
+  env: {
+    NEXT_STRIPE_PUBLISH_KEY: process.env.NEXT_STRIPE_PUBLISH_KEY,
+    NEXT_BACKEND_STRIPE_URL: process.env.NEXT_BACKEND_STRIPE_URL,
+    NEXT_STRIPE_DONATION_RETURN_URL: process.env.NEXT_STRIPE_DONATION_RETURN_URL,
+    NEXT_STRIPE_VANTAGE_RETURN_URL: process.env.NEXT_STRIPE_VANTAGE_RETURN_URL,
+    NEXT_BACKEND_PDF_URL: process.env.NEXT_BACKEND_PDF_URL,
+  },
+  
 };
 
 module.exports = nextConfig;
