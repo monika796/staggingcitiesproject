@@ -31,7 +31,7 @@ import {
 import MainComponent from '@/components/LightboxPdf'
 import { fetchData } from '@/lib/fetchData'
 export const revalidate = 60 // revalidate at most every 5 minutes
-
+export const fetchCache = 'force-no-store';
 
 // export const metadata: Metadata = {
 //   title: "Next.js Starter Template for SaaS Startups - Solid SaaS Boilerplate",
