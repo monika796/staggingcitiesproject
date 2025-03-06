@@ -6,7 +6,7 @@ import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
-export const fetchCache = 'force-no-store';
+
 
 const BlogPage = async () => {
   const [postData, data] = await Promise.all([fetchData(ARTICLES_QUERY), fetchData(ARTICLES_PAGE_QUERY)])

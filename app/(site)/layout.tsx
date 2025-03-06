@@ -8,7 +8,7 @@ import { ThemeProvider } from 'next-themes'
 import { Inter, Anton } from 'next/font/google' // Import both fonts
 import '../globals.css'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-export const fetchCache = 'force-no-store';
+
 const inter = Inter({ subsets: ['latin'] })
 const anton = Anton({ weight: '400', subsets: ['latin'] }) // Configure Anton with weight
 
