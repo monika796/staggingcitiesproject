@@ -121,7 +121,7 @@ const BlogPage = async () => {
                       image={post.featuredImage?.node?.link}
                       date={formatDate}
                       title={post.title}
-                      linkText="Read More"
+                      linkText="Read More" 
                       linkHref={post.slug}
                       featured={isFeatured}
                     />
