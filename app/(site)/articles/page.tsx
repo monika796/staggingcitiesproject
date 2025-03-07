@@ -6,13 +6,13 @@ import { ARTICLES_QUERY, ARTICLES_PAGE_QUERY } from '@/queries/queries'
 import Head from '../head'
 import { getSlugsFromUrl } from '@/lib/tools'
 import { fetchData } from '@/lib/fetchData'
-
+export const fetchCache = 'no-store';
 
 const BlogPage = async () => {
   const [postData, data] = await Promise.all([fetchData(ARTICLES_QUERY), fetchData(ARTICLES_PAGE_QUERY)])
 
   const allPosts = [...(postData?.featuredPosts?.nodes || []), ...(postData?.otherPosts?.nodes || [])]
-  console.log(allPosts);
+
   // Remove duplicates based on `id`
   const uniquePosts = Array.from(new Map(allPosts.map((post) => [post.id, post])).values())
 
