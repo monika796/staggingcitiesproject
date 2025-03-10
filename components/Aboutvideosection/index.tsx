@@ -4,28 +4,11 @@ import dynamic from 'next/dynamic'
 import { gql, useQuery } from '@apollo/client'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { ABOUT_VIDEO_QUERY } from '@/queries/queries'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
-const POSTS_QUERY = gql`
-  query MyQuery2 {
-    page(id: "cG9zdDoyNjY=") {
-      aboutussections {
-        videosectionheading
-        videosectiontitle
-        videosectiondescription
-        videosectionbackground {
-          node {
-            link
-          }
-        }
-      }
-    }
-  }
-`
-
-const VideoPlayer = () => {
-  const { loading, error, data } = useQuery(POSTS_QUERY)
+const VideoPlayer = ({ data }: { data: any }) => {
   const [isPlaying, setIsPlaying] = useState(false) // Track video play state
   const [isPlayed, setPlayed] = useState(false)
 
@@ -73,9 +56,6 @@ const VideoPlayer = () => {
     }
   }
 
-  if (loading) return null
-  if (error) return <p>Error: {error.message}</p>
-
   return (
     <section
       className="md:py-[32px] container mx-auto px-4"
@@ -90,11 +70,12 @@ const VideoPlayer = () => {
         {!isPlayed && (
           <div className="relative">
             <Image
-              src={data.page.aboutussections.videosectionbackground?.node?.link}
+              src={data.page.aboutussections.videosectionbackground?.node?.sourceUrl}
               alt="Video Poster"
               width={1000}
-              height={563}
-              className="w-full rounded-lg"
+              height={1000}
+              quality={100}
+              className="w-full rounded-lg h-[846px] object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center md:hidden">
               <div className="w-16 h-16 bg-black bg-opacity-50 flex items-center justify-center">

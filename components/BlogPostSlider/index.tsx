@@ -14,7 +14,7 @@ const POSTS_QUERY = gql`
       nodes {
         featuredImage {
           node {
-            link
+            sourceUrl
           }
         }
         title
@@ -41,7 +41,7 @@ const BlogCustomSlider = () => {
     id: index + 1,
     slug: dataposts.slug,
     post_id: dataposts.id,
-    imgSrc: dataposts.featuredImage?.node?.link,
+    imgSrc: dataposts.featuredImage?.node?.sourceUrl,
     date: new Date(dataposts.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',

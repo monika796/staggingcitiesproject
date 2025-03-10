@@ -13,7 +13,6 @@ import Head from '../head'
 export const revalidate = 60 // revalidate at most every 5 minutes
 import { SHORT_COURSE_PAGE_QUERY } from '@/queries/queries'
 
-
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 const ShortCoursePage = async () => {
   const data = await fetchData(SHORT_COURSE_PAGE_QUERY)

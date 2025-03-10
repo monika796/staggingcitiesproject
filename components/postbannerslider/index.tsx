@@ -10,7 +10,7 @@ import 'swiper/css/pagination'
 
 const SwiperSection = ({ data }: { data: any }) => {
   const posts = data?.posts?.nodes?.slice(0, 4) || []
-  console.log(posts);
+  // console.log(posts);
   return (
     <>
       <section className="max-w-[1480px] mx-auto  flex items-center justify-center">

@@ -51,22 +51,35 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
               className="text-lg md:text-[64px] font-bold text-gray-900 leading-tight"
               dangerouslySetInnerHTML={{ __html: post?.title }}
             />
-            <p className="text-gray-700 mt-4 text-[16px] md:text-[24px] max-w-[543px] leading-snug">
+            {/* <p className="text-gray-700 mt-4 text-[16px] md:text-[24px] max-w-[543px] leading-snug">
               You don’t have to search the Bible for very long to find passages highlighting the value and importance of
               community.
-            </p>
+            </p> */}
           </div>
         </div>
         {/* Right Section */}
         <div className=" md:w-1/4 w-full flex flex-col items-start justify-center md:items-start mt-6 md:mt-0 pl-0 md:pl-20 border-unset md:border-l h-auto  md:h-[230px]">
           {/* Date */}
           <div className="text-center md:text-left mt-10 md:mt-0">
-            <p className="text-[64px] font-bold text-gray-900">{post ? new Date(post.date).getDate() : ''}</p>
+            <p className="text-[30px] font-bold text-gray-900">
+              {post
+                ? new Date(post.date).toLocaleString('default', { month: 'long' }) + ' ' + new Date(post.date).getDate()
+                : ''}
+            </p>
             <p className="text-sm text-gray-500 mt-5">{post ? new Date(post.date).toLocaleDateString() : ''}</p>
           </div>
           {/* Social Media Links */}
           <div className="flex space-x-4 mt-4">
-            <Link href="https://www.facebook.com/CitiesProjectGlobal/" className="text-gray-500 hover:text-gray-900">
+            <Link
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                typeof window !== 'undefined'
+                  ? window.location.href
+                  : `https://citiesprojectglobal.com/articles/${slug}`,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-900"
+            >
               <span className="sr-only">Facebook</span>
               <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -76,7 +89,13 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
               </svg>
             </Link>
             <Link
-              href="https://www.linkedin.com/company/citiesprojectglobal"
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                typeof window !== 'undefined'
+                  ? window.location.href
+                  : `https://citiesprojectglobal.com/articles/${slug}`,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-900"
             >
               <span className="sr-only">LinkedIn</span>
@@ -107,14 +126,16 @@ const SingleBlogPage = async ({ params }: { params: Params }) => {
           </div>
         </div>
       </div>
-      <div className="blog-image">
-        <Image
-          alt="Featured Image"
-          width={1400}
-          height={1000}
-          className="mx-auto rounded-md"
-          src={post?.featuredImage?.node?.link || '/No_Image.jpg'} // Fallback if the image is missing
-        />
+      <div className="blog-image mt-10">
+        {post?.featuredImage?.node?.sourceUrl && (
+          <Image
+            alt="Featured Image"
+            width={700}
+            height={700}
+            className="mx-auto rounded-md"
+            src={post?.featuredImage?.node?.sourceUrl || '/No_Image.jpg'} // Fallback if the image is missing
+          />
+        )}
       </div>
       <div className="blog-content max-w-[684px] mx-auto py-15">
         <div

@@ -9,15 +9,16 @@ import VideoPlayer from '@/components/Aboutvideosection'
 import Link from 'next/link'
 import Head from '../head'
 import MainComponent from '@/components/LightboxPdf'
-import { ABOUT_US_PAGE_QUERY } from '@/queries/queries'
+import { ABOUT_US_PAGE_QUERY, ABOUT_VIDEO_QUERY } from '@/queries/queries'
 import { fetchData } from '@/lib/fetchData'
 
-export const revalidate = 60 // revalidate at most every 5 minutes
+export const revalidate = 60
 
 const anton = Anton({ weight: '400', subsets: ['latin'] })
 
 export default async function NewPage() {
   const data = await fetchData(ABOUT_US_PAGE_QUERY)
+  const about_video = await fetchData(ABOUT_VIDEO_QUERY)
   return (
     <main className="md:w-[100%] mx-auto lg:container md:container-fluid">
       <Head data={data} />
@@ -29,12 +30,12 @@ export default async function NewPage() {
       />
 
       <div className="mx-auto w-full">
-        <VideoPlayer />
+        <VideoPlayer data={about_video} />
       </div>
 
       {/* <section className="mx-auto md:py-[42px] container max-w-[1480px]">
         <Image
-          src={data.page.aboutuspage.secondimage?.node?.link || ''}
+          src={data.page.aboutuspage.secondimage?.node?.sourceUrl || ''}
           alt="Second Image" // Makes the image responsive
           width={1300} // Define the original aspect ratio width
           height={600} // Define the original aspect ratio height
@@ -61,7 +62,7 @@ export default async function NewPage() {
               alt=""
               width={800}
               height={500}
-              src={data.page.aboutuspage.secondsectionrightimage?.node?.link}
+              src={data.page.aboutuspage.secondsectionrightimage?.node?.sourceUrl}
               className="w-full md:w-auto object-cover rounded-md"
             />
           </div>
@@ -98,7 +99,7 @@ export default async function NewPage() {
                 width={800}
                 height={500}
                 objectFit="cover"
-                src={data.page.aboutuspage.secondsectionimagwithtext_image?.node?.link}
+                src={data.page.aboutuspage.secondsectionimagwithtext_image?.node?.sourceUrl}
               />
             </div>
           </div>
@@ -111,14 +112,14 @@ export default async function NewPage() {
             alt=""
             width={2000}
             height={2000}
-            src={data.page.aboutuspage.thirdsectionimage?.node?.link}
+            src={data.page.aboutuspage.thirdsectionimage?.node?.sourceUrl}
             className="mx-auto w-full object-cover h-full top-0 left-0"
           /> */}
 
           <div
             className=" flex flex-col items-center justify-center w-full h-full absolute top-0 left-0 bg-black"
             style={{
-              backgroundImage: `url(${data.page.aboutuspage.thirdsectionimage?.node?.link})`,
+              backgroundImage: `url(${data.page.aboutuspage.thirdsectionimage?.node?.sourceUrl})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
@@ -197,7 +198,7 @@ export default async function NewPage() {
                   <Image
                     width={60}
                     height={60}
-                    src={dataposts.logoIcons?.node?.link} // Access the image URL correctly
+                    src={dataposts.logoIcons?.node?.sourceUrl} // Access the image URL correctly
                     className="pb-5 mx-auto object-contain"
                     alt={dataposts.icontitle || 'Placeholder'} // Use icontitle as alt text
                   />
@@ -239,7 +240,7 @@ export default async function NewPage() {
           <div className="md:w-1/2 order-1 bg-[#d3d3d3] md:h-auto h-[350px] w-auto   bg-contain bg-no-repeat bg-bottom   ">
             <div className="border border-white m-[6px] w-[98%] h-[97%] relative ">
               <Image
-                src={data.page.aboutussections.imagewithtextImage1?.node?.link}
+                src={data.page.aboutussections.imagewithtextImage1?.node?.sourceUrl}
                 alt="Background Image"
                 layout="fill" // This will make the image cover the div area
                 objectFit="cover" // Ensure the image is scaled to cover the div
@@ -255,7 +256,7 @@ export default async function NewPage() {
           <div className="md:w-1/2 bg-contain bg-[#d3d3d3] md:h-auto h-[350px] w-auto bg-no-repeat bg-bottom  ">
             <div className="border border-white m-[6px] w-[98%] h-[97%] relative ">
               <Image
-                src={`${data.page.aboutussections.imagewithtextImage2?.node?.link}`}
+                src={`${data.page.aboutussections.imagewithtextImage2?.node?.sourceUrl}`}
                 alt="Background Image"
                 layout="fill" // This will make the image cover the div area
                 objectFit="cover" // Ensure the image is scaled to cover the div
@@ -308,7 +309,7 @@ export default async function NewPage() {
                 width={750}
                 height={500}
                 alt=""
-                src={data.page.aboutussections.tenthsectionrightimage?.node?.link}
+                src={data.page.aboutussections.tenthsectionrightimage?.node?.sourceUrl}
                 className="mx-auto"
               />
               <div className="md:flex ">
@@ -318,7 +319,7 @@ export default async function NewPage() {
                       width={50}
                       height={50}
                       alt=""
-                      src={slide.columnsimage?.node?.link}
+                      src={slide.columnsimage?.node?.sourceUrl}
                       className="mx-auto md:mx-0"
                     />
                     <h5 className="text-black text-[18px] md:text-left text-center">{slide.columnstext}</h5>
@@ -384,13 +385,18 @@ export default async function NewPage() {
       <div className="container mx-auto md:mt-10 max-w-[1480px]">
         <section className="md:flex w-[80%] mx-auto pb-[30px] md:pb-[170px] gap-5">
           <div className="md:w-1/2 ">
-            <Image width={430} height={300} src={data.page.aboutussections.twelthsectionleftimage?.node?.link} alt="" />
+            <Image
+              width={430}
+              height={300}
+              src={data.page.aboutussections.twelthsectionleftimage?.node?.sourceUrl}
+              alt=""
+            />
           </div>
           <div className="md:w-1/2 grid gap-5">
             <Image
               width={550}
               height={300}
-              src={data.page.aboutussections.twelthsectionrightimage?.node?.link}
+              src={data.page.aboutussections.twelthsectionrightimage?.node?.sourceUrl}
               alt=""
               className="order-2 md:order-1"
             />

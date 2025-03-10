@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
 import ThemeToggler from './ThemeToggler'
 import menuData from './menuData'
 import Script from "next/script";
-
+ import GoogleTranslateFix  from '@/lib/custom'
+ 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false)
   const [dropdownToggler, setDropdownToggler] = useState(false)
@@ -16,7 +17,7 @@ const Header = () => {
   
     window.googleTranslateElementInit = () => {
       // new window.google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element2');
-     new window.google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+     new window.google.translate.TranslateElement({ pageLanguage: '' }, 'google_translate_element');
     };
   
    }, []);
@@ -78,7 +79,7 @@ const Header = () => {
 
       setLastScrollTop(st <= 0 ? 0 : st) // To handle negative scrolling (e.g., mobile)
     }
-
+    
     // Adding scroll event listener
     window.addEventListener('scroll', handleScroll)
 
@@ -268,7 +269,7 @@ const Header = () => {
         <Script
      src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
     ></Script>
-
+  
     {/* Google Translate CSS */}
     <link
      rel="stylesheet"
@@ -276,8 +277,8 @@ const Header = () => {
      href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.26tY-h6gH9w.L.W.O/am=CAM/d=0/rs=AN8SPfpIXxhebB2A47D9J-MACsXmFF6Vew/m=el_main_css"
     />
        
-      
-
+     
+       <GoogleTranslateFix />
         <div className="px-4 lg:flex md:hidden md:items-center">
             <div className="social-icons hidden md:flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse ">
               <Link
