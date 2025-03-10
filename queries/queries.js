@@ -208,6 +208,22 @@ export const HOME_PAGE_QUERY = gql`
   }
   ${SEO_FRAGMENT}
 `
+export const ABOUT_VIDEO_QUERY = gql`
+  query MyQuery2 {
+    page(id: "cG9zdDoyNjY=") {
+      aboutussections {
+        videosectionheading
+        videosectiontitle
+        videosectiondescription
+        videosectionbackground {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+`
 
 export const ABOUT_US_PAGE_QUERY = gql`
   query {
@@ -220,7 +236,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         mainheadingabout
         secondimage {
           node {
-            link
+            sourceUrl
           }
         }
         secondsectionheading_1
@@ -228,12 +244,12 @@ export const ABOUT_US_PAGE_QUERY = gql`
 
         secondsectionrightimage {
           node {
-            link
+            sourceUrl
           }
         }
         secondsectionimagwithtext_image {
           node {
-            link
+            sourceUrl
           }
         }
         secondsectionimagwithtextText
@@ -242,7 +258,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         secondsectionimagwithtextButtonlink
         thirdsectionimage {
           node {
-            link
+            sourceUrl
           }
         }
         forthsectionlefttext
@@ -259,7 +275,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         iconsections {
           logoIcons {
             node {
-              link
+              sourceUrl
             }
           }
           icontitle
@@ -267,19 +283,19 @@ export const ABOUT_US_PAGE_QUERY = gql`
         videosectionheading
         videosectionbackground {
           node {
-            link
+            sourceUrl
           }
         }
         videosectiontitle
         videosectiondescription
         imagewithtextImage1 {
           node {
-            link
+            sourceUrl
           }
         }
         imagewithtextImage1 {
           node {
-            link
+            sourceUrl
           }
         }
         imagewithtext1Description1
@@ -290,7 +306,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         imagewithtext1Heading
         imagewithtextImage2 {
           node {
-            link
+            sourceUrl
           }
         }
         imagewithtext2Description1
@@ -304,7 +320,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         tenthsectionleftheading
         tenthsectionrightimage {
           node {
-            link
+            sourceUrl
           }
         }
         tenthsectionleftsubheading
@@ -317,12 +333,12 @@ export const ABOUT_US_PAGE_QUERY = gql`
         eleventhsection2heading
         twelthsectionleftimage {
           node {
-            link
+            sourceUrl
           }
         }
         twelthsectionrightimage {
           node {
-            link
+            sourceUrl
           }
         }
         twelthsectionrightdescription
@@ -330,7 +346,7 @@ export const ABOUT_US_PAGE_QUERY = gql`
         tenthsectionrightcolumns {
           columnsimage {
             node {
-              link
+              sourceUrl
             }
           }
           columnstext
@@ -868,7 +884,7 @@ export const ARTICLES_QUERY = gql`
         date
         featuredImage {
           node {
-            link
+            sourceUrl
           }
         }
         title
@@ -889,7 +905,7 @@ export const ARTICLES_QUERY = gql`
         date
         featuredImage {
           node {
-            link
+            sourceUrl
           }
         }
         title
@@ -1103,7 +1119,7 @@ export const VANTAGEPOINT_QUERY = gql`
   }
   ${SEO_FRAGMENT}
 `
- 
+
 export const HOME_HERO_NEWS_QUERY = gql`
   query {
     posts(where: { tag: "featured" }) {
@@ -1181,7 +1197,7 @@ export const SHORT_COURSE_PAGE_QUERY = gql`
               link
             }
           }
-        } 
+        }
         shortCoursesSecondSection {
           shortCoursesSecondSectionFirstColumnText
           shortCoursesSecondSectionSecondColumnHeading
@@ -1379,7 +1395,7 @@ export const POST_QUERY = gql`
       }
       featuredImage {
         node {
-          link
+          sourceUrl
         }
       }
       seoMetaFields {
