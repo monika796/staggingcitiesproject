@@ -88,7 +88,7 @@ export default async function Partner() {
     <div className="container mx-auto max-w-[1280px]">
       <section className="md:pt-[150px] pt-[50px] border border-x-0 border-y-stroke py-11 dark:border-y-strokedark dark:bg-black">
         <div className="mx-auto  px-4 md:px-8 2xl:px-0">
-          <h5 className="md:text-[64px] text-[30px] leading-[37px] text-black text-center md:pb-[30px] font-bold pb-2">
+          <h5 className="md:text-[64px] text-[30px] max-[1028px]:!text-[50px]   leading-[37px] text-black text-center md:pb-[30px] font-bold pb-2">
             {data.page.patnerssection.mainheading}
           </h5>
           <h5

@@ -424,7 +424,7 @@ const page = async () => {
                   />
                 </div>
                 <div className=" md:w-2/3 w-full rounded ">
-                  <div className="bg-[#D8FFA1] flex p-6  h-auto md:w-[70%] w-full gap-[29px] flex h-auto">
+                  <div className="bg-[#D8FFA1] flex  max-[1028px]:grid  p-6  h-auto md:w-[70%] w-full gap-[29px] flex h-auto">
                     <h2 className=" w-4/12 text-[40px] leading-[50px] w-[80%] font-bold text-[#000000]">
                       {vantage.vintageNinthSection.vintageNinthSectionRightSectionRowSecondHeading}
                     </h2>

@@ -52,7 +52,7 @@ const Contact = async (): Promise<JSX.Element> => {
 
   const fields = response.data.page.contactpagefeilds
   return (
-    <main className="md:w-[80%] mx-auto">
+    <main className="md:w-[80%]    lg:w-[100%]     width: 100%; mx-auto">
       <Head data={response.data} />
       <div className="container mx-auto pt-10 md:pt-20 max-w-[1480px]">
         <section className="md:flex">
@@ -95,7 +95,7 @@ const Contact = async (): Promise<JSX.Element> => {
               </div>
               <div className="md:w-1/2">
                 <h3
-                  className={`${anton.className} uppercase text-center md:text-left md:text-[55px] text-[30px] text-[#000000] font-light leading-[68px]`}
+                  className={`${anton.className} uppercase  text-center md:text-left md:text-[55px] text-[30px] text-[#000000] font-light leading-[68px]`}
                 >
                   {fields.secondContactSectionHeading}
                 </h3>

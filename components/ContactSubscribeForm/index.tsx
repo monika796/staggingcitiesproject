@@ -116,7 +116,7 @@ const SubscriptionForm = () => {
             placeholder="Enter Name"
             value={formData.input_8}
             onChange={handleChange}
-            className="border p-2"
+            className="border p-2 w-[85%]"
             required
           />
 
@@ -127,7 +127,7 @@ const SubscriptionForm = () => {
             placeholder="Enter Email"
             value={formData.input_3}
             onChange={handleChange}
-            className="border p-2"
+            className="border p-2 w-[85%]"
             required
           />
 
@@ -138,7 +138,7 @@ const SubscriptionForm = () => {
             placeholder="Enter Company"
             value={formData.input_5}
             onChange={handleChange}
-            className="border p-2"
+            className="border p-2 w-[85%]"
             required
           />
 
@@ -149,7 +149,7 @@ const SubscriptionForm = () => {
             placeholder="Enter Position"
             value={formData.input_6}
             onChange={handleChange}
-            className="border p-2"
+            className="border p-2 w-[85%]"
             required
           />
 
@@ -159,7 +159,7 @@ const SubscriptionForm = () => {
             placeholder="Enter Message"
             value={formData.input_7}
             onChange={handleChange}
-            className="border p-2"
+            className="border p-2 w-[85%]"
           ></textarea>
 
           <label className="text-black font-bold">
@@ -172,7 +172,7 @@ const SubscriptionForm = () => {
 
           <button
             type="submit"
-            className={`p-2 rounded ${loading ? 'bg-gray-500' : 'bg-green-500'} text-white`}
+            className={`  w-[85%] p-2 rounded ${loading ? 'bg-gray-500' : 'bg-green-500'} text-white`}
             disabled={loading}
           >
             {loading ? 'Submitting...' : 'Submit'}

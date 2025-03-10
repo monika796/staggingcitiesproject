@@ -17,7 +17,7 @@ const BlogCard = ({ image, index, date, title, linkText, linkHref, featured }) =
           </span>
         )}
         <h3
-          className="text-[24px] font-normal mb-5 text-gray-900 mt-2 leading-normal"
+          className="text-[24px] max-[1028px]:text-[19px] font-normal mb-5 text-gray-900 mt-2 leading-normal"
           dangerouslySetInnerHTML={{ __html: title }}
         />
         {/* <div className="text-gray-700 text-[14px] mb-9 leading-[16.94px] mt-2 line-clamp-5">{parse(content || '')}</div> */}
